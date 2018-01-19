@@ -20,7 +20,7 @@ class KeyboardViewController: UIInputViewController {
     
     let backspaceName = "⇦"
     let switchName = ""
-    let spaceName = ""
+    let spaceName = ""
     let enterName = ""
     
     override func viewDidLoad() {
