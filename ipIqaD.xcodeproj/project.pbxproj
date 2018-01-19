@@ -14,6 +14,10 @@
 		42010D42200D36E800B8D880 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42010D40200D36E800B8D880 /* LaunchScreen.storyboard */; };
 		42010D4D200D36E900B8D880 /* ipIqaDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D4C200D36E900B8D880 /* ipIqaDTests.swift */; };
 		42010D58200D36E900B8D880 /* ipIqaDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D57200D36E900B8D880 /* ipIqaDUITests.swift */; };
+		42010D6C200D37B800B8D880 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D6B200D37B800B8D880 /* KeyboardViewController.swift */; };
+		42010D70200D37B800B8D880 /* pIqaD.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 42010D69200D37B700B8D880 /* pIqaD.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		42010D77200D394B00B8D880 /* Klingon-pIqaD-HaSta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42010D76200D394B00B8D880 /* Klingon-pIqaD-HaSta.ttf */; };
+		42010D7A200D449D00B8D880 /* Klingon-pIqaD-HaSta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 42010D76200D394B00B8D880 /* Klingon-pIqaD-HaSta.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,7 +35,28 @@
 			remoteGlobalIDString = 42010D33200D36E800B8D880;
 			remoteInfo = ipIqaD;
 		};
+		42010D6E200D37B800B8D880 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42010D2C200D36E800B8D880 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42010D68200D37B700B8D880;
+			remoteInfo = pIqaD;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		42010D74200D37B800B8D880 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				42010D70200D37B800B8D880 /* pIqaD.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		42010D34200D36E800B8D880 /* ipIqaD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ipIqaD.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +72,10 @@
 		42010D53200D36E900B8D880 /* ipIqaDUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ipIqaDUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42010D57200D36E900B8D880 /* ipIqaDUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ipIqaDUITests.swift; sourceTree = "<group>"; };
 		42010D59200D36E900B8D880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42010D69200D37B700B8D880 /* pIqaD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = pIqaD.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		42010D6B200D37B800B8D880 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		42010D6D200D37B800B8D880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42010D76200D394B00B8D880 /* Klingon-pIqaD-HaSta.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Klingon-pIqaD-HaSta.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +100,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		42010D66200D37B700B8D880 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -80,6 +116,7 @@
 				42010D36200D36E800B8D880 /* ipIqaD */,
 				42010D4B200D36E900B8D880 /* ipIqaDTests */,
 				42010D56200D36E900B8D880 /* ipIqaDUITests */,
+				42010D6A200D37B800B8D880 /* pIqaD */,
 				42010D35200D36E800B8D880 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +127,7 @@
 				42010D34200D36E800B8D880 /* ipIqaD.app */,
 				42010D48200D36E900B8D880 /* ipIqaDTests.xctest */,
 				42010D53200D36E900B8D880 /* ipIqaDUITests.xctest */,
+				42010D69200D37B700B8D880 /* pIqaD.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +163,24 @@
 			path = ipIqaDUITests;
 			sourceTree = "<group>";
 		};
+		42010D6A200D37B800B8D880 /* pIqaD */ = {
+			isa = PBXGroup;
+			children = (
+				42010D75200D393700B8D880 /* fonts */,
+				42010D6B200D37B800B8D880 /* KeyboardViewController.swift */,
+				42010D6D200D37B800B8D880 /* Info.plist */,
+			);
+			path = pIqaD;
+			sourceTree = "<group>";
+		};
+		42010D75200D393700B8D880 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				42010D76200D394B00B8D880 /* Klingon-pIqaD-HaSta.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,10 +191,12 @@
 				42010D30200D36E800B8D880 /* Sources */,
 				42010D31200D36E800B8D880 /* Frameworks */,
 				42010D32200D36E800B8D880 /* Resources */,
+				42010D74200D37B800B8D880 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				42010D6F200D37B800B8D880 /* PBXTargetDependency */,
 			);
 			name = ipIqaD;
 			productName = ipIqaD;
@@ -181,6 +239,23 @@
 			productReference = 42010D53200D36E900B8D880 /* ipIqaDUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		42010D68200D37B700B8D880 /* pIqaD */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42010D71200D37B800B8D880 /* Build configuration list for PBXNativeTarget "pIqaD" */;
+			buildPhases = (
+				42010D65200D37B700B8D880 /* Sources */,
+				42010D66200D37B700B8D880 /* Frameworks */,
+				42010D67200D37B700B8D880 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pIqaD;
+			productName = pIqaD;
+			productReference = 42010D69200D37B700B8D880 /* pIqaD.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -205,6 +280,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 42010D33200D36E800B8D880;
 					};
+					42010D68200D37B700B8D880 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 42010D2F200D36E800B8D880 /* Build configuration list for PBXProject "ipIqaD" */;
@@ -223,6 +302,7 @@
 				42010D33200D36E800B8D880 /* ipIqaD */,
 				42010D47200D36E900B8D880 /* ipIqaDTests */,
 				42010D52200D36E900B8D880 /* ipIqaDUITests */,
+				42010D68200D37B700B8D880 /* pIqaD */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +315,7 @@
 				42010D42200D36E800B8D880 /* LaunchScreen.storyboard in Resources */,
 				42010D3F200D36E800B8D880 /* Assets.xcassets in Resources */,
 				42010D3D200D36E800B8D880 /* Main.storyboard in Resources */,
+				42010D77200D394B00B8D880 /* Klingon-pIqaD-HaSta.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +330,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42010D67200D37B700B8D880 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42010D7A200D449D00B8D880 /* Klingon-pIqaD-HaSta.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +369,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		42010D65200D37B700B8D880 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42010D6C200D37B800B8D880 /* KeyboardViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -292,6 +389,11 @@
 			isa = PBXTargetDependency;
 			target = 42010D33200D36E800B8D880 /* ipIqaD */;
 			targetProxy = 42010D54200D36E900B8D880 /* PBXContainerItemProxy */;
+		};
+		42010D6F200D37B800B8D880 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42010D68200D37B700B8D880 /* pIqaD */;
+			targetProxy = 42010D6E200D37B800B8D880 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -425,6 +527,7 @@
 		42010D5D200D36E900B8D880 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7P46ZKENCT;
@@ -440,6 +543,7 @@
 		42010D5E200D36E900B8D880 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7P46ZKENCT;
@@ -518,6 +622,38 @@
 			};
 			name = Release;
 		};
+		42010D72200D37B800B8D880 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P46ZKENCT;
+				INFOPLIST_FILE = pIqaD/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.dadap.ipIqaD.pIqaD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42010D73200D37B800B8D880 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7P46ZKENCT;
+				INFOPLIST_FILE = pIqaD/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = net.dadap.ipIqaD.pIqaD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -553,6 +689,15 @@
 			buildConfigurations = (
 				42010D63200D36E900B8D880 /* Debug */,
 				42010D64200D36E900B8D880 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42010D71200D37B800B8D880 /* Build configuration list for PBXNativeTarget "pIqaD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42010D72200D37B800B8D880 /* Debug */,
+				42010D73200D37B800B8D880 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
