@@ -68,10 +68,13 @@ class KeyboardViewController: UIInputViewController {
             if (name == switchName) {
                 self.nextKeyboardButton = key
                 key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
+                if (self.needsInputModeSwitchKey) {
+                    keys.append(key)
+                }
             } else {
                 key.addTarget(self, action: #selector(keyUp(sender:)), for: .touchUpInside)
+                keys.append(key)
             }
-            keys.append(key)
         }
         
         return keys
