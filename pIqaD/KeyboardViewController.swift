@@ -22,7 +22,10 @@ class KeyboardViewController: UIInputViewController {
     let switchName = ""
     let spaceName = ""
     let enterName = ""
-    
+
+    let bgColor = UIColor.lightGray
+    let labelColor = UIColor.red
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +52,9 @@ class KeyboardViewController: UIInputViewController {
         
         keyRows.sizeToFit()
         self.view.addSubview(keyRows)
-        
+
+        self.view.backgroundColor = bgColor
+
         let viewsDictionary = ["keyRows":keyRows]
         let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[keyRows]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
         let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[keyRows]-0-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
@@ -64,8 +69,8 @@ class KeyboardViewController: UIInputViewController {
             let key = UIButton(type: .system)
             key.setTitle(name, for: [])
             key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 24)
-            key.setTitleColor(.darkText, for: .normal)
-            key.backgroundColor = .lightGray
+            key.setTitleColor(labelColor, for: .normal)
+            key.backgroundColor = bgColor
 
             if (name == switchName) {
                 self.nextKeyboardButton = key
