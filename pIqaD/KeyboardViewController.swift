@@ -92,14 +92,14 @@ class KeyboardViewController: UIInputViewController {
     }
     
     func popOut(key: UIButton) {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             key.transform = CGAffineTransform(translationX: 0, y: -30)
         })
         key.isHighlighted = false
     }
 
     func popIn(key: UIButton) {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             key.transform = .identity
         })
     }
