@@ -63,6 +63,7 @@ class KeyboardViewController: UIInputViewController {
         for name in names {
             let key = UIButton(type: .system)
             key.setTitle(name, for: [])
+            key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 24)
 
             if (name == switchName) {
                 self.nextKeyboardButton = key
