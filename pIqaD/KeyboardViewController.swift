@@ -64,6 +64,8 @@ class KeyboardViewController: UIInputViewController {
             let key = UIButton(type: .system)
             key.setTitle(name, for: [])
             key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 24)
+            key.setTitleColor(.darkText, for: .normal)
+            key.backgroundColor = .lightGray
 
             if (name == switchName) {
                 self.nextKeyboardButton = key
@@ -73,6 +75,10 @@ class KeyboardViewController: UIInputViewController {
                 }
             } else {
                 key.addTarget(self, action: #selector(keyUp(sender:)), for: .touchUpInside)
+                key.addTarget(self, action: #selector(keyDown(sender:)), for: .touchDown)
+                key.addTarget(self, action: #selector(slideIn(sender:)), for: .touchDragEnter)
+                key.addTarget(self, action: #selector(slideOut(sender:)), for: .touchDragExit)
+
                 keys.append(key)
             }
         }
@@ -80,10 +86,23 @@ class KeyboardViewController: UIInputViewController {
         return keys
     }
     
+    func popOut(key: UIButton) {
+        UIView.animate(withDuration: 0.2, animations: {
+            key.transform = CGAffineTransform(translationX: 0, y: -30)
+        })
+        key.isHighlighted = false
+    }
+
+    func popIn(key: UIButton) {
+        UIView.animate(withDuration: 0.2, animations: {
+            key.transform = .identity
+        })
+    }
+
     @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
         handleInputModeList(from: sender, with: event)
     }
-    
+
     @IBAction func keyUp(sender: UIButton) {
         let name = sender.title(for: .normal)
         
@@ -96,8 +115,22 @@ class KeyboardViewController: UIInputViewController {
         } else {
             (textDocumentProxy as UIKeyInput).insertText(name!)
         }
+
+        popIn(key: sender)
     }
-    
+
+    @IBAction func keyDown(sender: UIButton) {
+        popOut(key: sender)
+    }
+
+    @IBAction func slideIn(sender: UIButton) {
+        popOut(key: sender)
+    }
+
+    @IBAction func slideOut(sender: UIButton) {
+        popIn(key: sender)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated
