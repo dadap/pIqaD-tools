@@ -38,14 +38,20 @@ class KeyboardViewController: UIInputViewController {
         let keyRows = UIStackView()
         keyRows.axis = .vertical
         keyRows.translatesAutoresizingMaskIntoConstraints = false
+        keyRows.spacing = 4
         
         for nameRow in keyNames {
             let keys = makeKeys(names: nameRow)
             let row = UIStackView(arrangedSubviews: keys)
             row.axis = .horizontal
-            row.distribution = .fillEqually
+            if (isPrintable(key: keys[0])) {
+                row.distribution = .fillEqually
+            } else {
+                row.distribution = .fillProportionally
+            }
             row.alignment = .fill
             row.translatesAutoresizingMaskIntoConstraints = false
+            row.spacing = 4
             row.sizeToFit()
             keyRows.addArrangedSubview(row)
         }
@@ -53,11 +59,9 @@ class KeyboardViewController: UIInputViewController {
         keyRows.sizeToFit()
         self.view.addSubview(keyRows)
 
-        self.view.backgroundColor = bgColor
-
         let viewsDictionary = ["keyRows":keyRows]
-        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[keyRows]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
-        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[keyRows]-0-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
+        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
         view.addConstraints(stackView_H)
         view.addConstraints(stackView_V)
     }
@@ -71,6 +75,7 @@ class KeyboardViewController: UIInputViewController {
             key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 26)
             key.setTitleColor(labelColor, for: .normal)
             key.backgroundColor = bgColor
+            key.layer.cornerRadius = 6
 
             if (name == switchName) {
                 self.nextKeyboardButton = key
