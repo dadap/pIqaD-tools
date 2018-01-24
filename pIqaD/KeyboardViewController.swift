@@ -66,7 +66,7 @@ class KeyboardViewController: UIInputViewController {
         var keys = [UIButton]()
         
         for name in names {
-            let key = UIButton(type: .system)
+            let key = UIButton(type: .custom)
             key.setTitle(name, for: [])
             key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 24)
             key.setTitleColor(labelColor, for: .normal)
