@@ -79,6 +79,10 @@ class KeyboardViewController: UIInputViewController {
                     keys.append(key)
                 }
             } else {
+                if (name == enterName) {
+                    key.backgroundColor = labelColor
+                    key.setTitleColor(bgColor, for: .normal)
+                }
                 key.addTarget(self, action: #selector(keyUp(sender:)), for: .touchUpInside)
                 key.addTarget(self, action: #selector(keyDown(sender:)), for: .touchDown)
                 key.addTarget(self, action: #selector(slideIn(sender:)), for: .touchDragEnter)
@@ -90,18 +94,33 @@ class KeyboardViewController: UIInputViewController {
         
         return keys
     }
-    
+
+    func isPrintable(key: UIButton) -> Bool {
+        return key.currentTitle?.count == 1 && key.currentTitle != backspaceName
+    }
+
     func popOut(key: UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            key.transform = CGAffineTransform(translationX: 0, y: -30)
-        })
-        key.isHighlighted = false
+        key.backgroundColor = .white
+
+        if (isPrintable(key: key)) {
+            UIView.animate(withDuration: 0.04, animations: {
+                key.transform = CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 0, ty: -39)
+            })
+        }
     }
 
     func popIn(key: UIButton) {
-        UIView.animate(withDuration: 0.1, animations: {
-            key.transform = .identity
-        })
+        if (key.currentTitle == enterName) {
+            key.backgroundColor = labelColor
+        } else {
+            key.backgroundColor = bgColor
+        }
+
+        if (isPrintable(key: key)) {
+            UIView.animate(withDuration: 0.04, animations: {
+                key.transform = .identity
+            })
+        }
     }
 
     @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
