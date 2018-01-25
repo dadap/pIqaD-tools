@@ -177,6 +177,10 @@ class KeyboardViewController: UIInputViewController {
             setTitleColor(KeyboardButton.labelColor, for: .normal)
             backgroundColor = KeyboardButton.bgColor
             layer.cornerRadius = KeyboardButton.cornerRadius
+            layer.shadowColor = UIColor.black.cgColor
+            layer.shadowRadius = 0.2
+            layer.shadowOpacity = 0.4
+            layer.shadowOffset = CGSize(width: 1, height: 1)
         }
 
         required init?(coder: NSCoder) {
