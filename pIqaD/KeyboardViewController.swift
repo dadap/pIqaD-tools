@@ -9,6 +9,7 @@
 import UIKit
 
 class KeyboardViewController: UIInputViewController {
+    var keyboard: UIStackView = UIStackView()
 
     @IBOutlet var nextKeyboardButton: UIButton!
     
@@ -17,34 +18,76 @@ class KeyboardViewController: UIInputViewController {
         
         // Add custom view sizing constraints here
     }
-    
-    let backspaceName = "⇦"
-    let switchName = ""
-    let spaceName = ""
-    let enterName = ""
 
-    let bgColor = UIColor.lightGray
-    let labelColor = UIColor.red
+    func initKeyboard() {
+        keyboard = makeKeyboard()
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        initKeyboard()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initKeyboard()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let keyNames = [["", "", "", "", "", "", "", "", "", ""],
-                        ["", "", "", "", "", "", "", "", "", ""],
-                        ["", "", "", "", "", "", "", "", "", ""],
-                        ["", "", "", "", "", "", "", "", "", backspaceName],
-                        [switchName, spaceName, enterName]
-        ]
-        let keyRows = UIStackView()
-        keyRows.axis = .vertical
-        keyRows.translatesAutoresizingMaskIntoConstraints = false
-        keyRows.spacing = 4
-        
-        for nameRow in keyNames {
-            let keys = makeKeys(names: nameRow)
-            let row = UIStackView(arrangedSubviews: keys)
+
+        self.view.addSubview(keyboard)
+
+        let viewsDictionary = ["keyRows":keyboard]
+        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
+        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        view.addConstraints(stackView_H)
+        view.addConstraints(stackView_V)
+    }
+
+    @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
+        handleInputModeList(from: sender, with: event)
+    }
+
+    @IBAction func keyUp(sender: KeyboardButton) {
+        let name = sender.currentTitle
+
+        if (name == KeyboardButton.backspaceName) {
+            (textDocumentProxy as UIKeyInput).deleteBackward()
+        } else if (name == KeyboardButton.spaceName) {
+            (textDocumentProxy as UIKeyInput).insertText(" ")
+        } else if (name == KeyboardButton.enterName) {
+            (textDocumentProxy as UIKeyInput).insertText("\n")
+        } else {
+            (textDocumentProxy as UIKeyInput).insertText(name!)
+        }
+
+        sender.popIn()
+    }
+
+    @IBAction func keyDown(sender: KeyboardButton) {
+        sender.popOut()
+    }
+
+    @IBAction func slideIn(sender: KeyboardButton) {
+        sender.popOut()
+    }
+
+    @IBAction func slideOut(sender: KeyboardButton) {
+        sender.popIn()
+    }
+
+    func makeKeyboard() -> UIStackView {
+        let keyboard = UIStackView()
+
+        keyboard.axis = .vertical
+        keyboard.translatesAutoresizingMaskIntoConstraints = false
+        keyboard.spacing = 4
+
+        for nameRow in KeyboardButton.keyNames {
+            let row = makeRow(names: nameRow)
             row.axis = .horizontal
-            if (isPrintable(key: keys[0])) {
+            if ((row.arrangedSubviews[0] as! KeyboardButton).isPrintable()) {
                 row.distribution = .fillEqually
             } else {
                 row.distribution = .fillProportionally
@@ -53,40 +96,35 @@ class KeyboardViewController: UIInputViewController {
             row.translatesAutoresizingMaskIntoConstraints = false
             row.spacing = 4
             row.sizeToFit()
-            keyRows.addArrangedSubview(row)
+            keyboard.addArrangedSubview(row)
         }
-        
-        keyRows.sizeToFit()
-        self.view.addSubview(keyRows)
 
-        let viewsDictionary = ["keyRows":keyRows]
-        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
-        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
-        view.addConstraints(stackView_H)
-        view.addConstraints(stackView_V)
+        keyboard.sizeToFit()
+
+        return keyboard
     }
-    
-    func makeKeys(names: [String]) -> [UIButton] {
-        var keys = [UIButton]()
-        
+
+    func makeRow(names: [String]) -> UIStackView {
+        var keys = [KeyboardButton]()
+
         for name in names {
-            let key = UIButton(type: .custom)
-            key.setTitle(name, for: [])
+            let key = KeyboardButton(label: name)
             key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 26)
-            key.setTitleColor(labelColor, for: .normal)
-            key.backgroundColor = bgColor
+            key.setTitleColor(KeyboardButton.labelColor, for: .normal)
+            key.backgroundColor = KeyboardButton.bgColor
             key.layer.cornerRadius = 6
 
-            if (name == switchName) {
-                self.nextKeyboardButton = key
+            if (name == KeyboardButton.switchName) {
                 key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
-                if (self.needsInputModeSwitchKey) {
+                nextKeyboardButton = key
+
+                if needsInputModeSwitchKey {
                     keys.append(key)
                 }
             } else {
-                if (name == enterName) {
-                    key.backgroundColor = labelColor
-                    key.setTitleColor(bgColor, for: .normal)
+                if (name == KeyboardButton.enterName) {
+                    key.backgroundColor = KeyboardButton.labelColor
+                    key.setTitleColor(KeyboardButton.bgColor, for: .normal)
                 }
                 key.addTarget(self, action: #selector(keyUp(sender:)), for: .touchUpInside)
                 key.addTarget(self, action: #selector(keyDown(sender:)), for: .touchDown)
@@ -96,67 +134,62 @@ class KeyboardViewController: UIInputViewController {
                 keys.append(key)
             }
         }
-        
-        return keys
+
+        return UIStackView(arrangedSubviews: keys)
     }
 
-    func isPrintable(key: UIButton) -> Bool {
-        return key.currentTitle?.count == 1 && key.currentTitle != backspaceName
-    }
+    class KeyboardButton: UIButton {
+        static let bgColor = UIColor.lightGray
+        static let labelColor = UIColor.red
 
-    func popOut(key: UIButton) {
-        key.backgroundColor = .white
+        static let backspaceName = "⇦"
+        static let switchName = ""
+        static let spaceName = ""
+        static let enterName = ""
 
-        if (isPrintable(key: key)) {
-            UIView.animate(withDuration: 0.04, animations: {
-                key.transform = CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 0, ty: -39)
-            })
-        }
-    }
+        static let keyNames = [["", "", "", "", "", "", "", "", "", ""],
+                               ["", "", "", "", "", "", "", "", "", ""],
+                               ["", "", "", "", "", "", "", "", "", ""],
+                               ["", "", "", "", "", "", "", "", "", backspaceName],
+                               [switchName, spaceName, enterName]
+        ]
 
-    func popIn(key: UIButton) {
-        if (key.currentTitle == enterName) {
-            key.backgroundColor = labelColor
-        } else {
-            key.backgroundColor = bgColor
-        }
+        init(label: String) {
+            super.init(frame: .zero)
 
-        if (isPrintable(key: key)) {
-            UIView.animate(withDuration: 0.04, animations: {
-                key.transform = .identity
-            })
-        }
-    }
-
-    @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
-        handleInputModeList(from: sender, with: event)
-    }
-
-    @IBAction func keyUp(sender: UIButton) {
-        let name = sender.title(for: .normal)
-        
-        if (name == backspaceName) {
-            (textDocumentProxy as UIKeyInput).deleteBackward()
-        } else if (name == spaceName) {
-            (textDocumentProxy as UIKeyInput).insertText(" ")
-        } else if (name == enterName) {
-            (textDocumentProxy as UIKeyInput).insertText("\n")
-        } else {
-            (textDocumentProxy as UIKeyInput).insertText(name!)
+            self.setTitle(label, for: [])
         }
 
-        popIn(key: sender)
-    }
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) not implemented")
+        }
 
-    @IBAction func keyDown(sender: UIButton) {
-        popOut(key: sender)
-    }
+        func isPrintable() -> Bool {
+            return self.currentTitle?.count == 1 && self.currentTitle != KeyboardButton.backspaceName
+        }
 
-    @IBAction func slideIn(sender: UIButton) {
-        popOut(key: sender)
-    }
+        func popOut() {
+            backgroundColor = .white
 
-    @IBAction func slideOut(sender: UIButton) {
-        popIn(key: sender)
+            if (isPrintable()) {
+                UIView.animate(withDuration: 0.04, animations: {
+                    self.transform = CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 0, ty: -39)
+                })
+            }
+        }
+
+        func popIn() {
+            if (currentTitle == KeyboardButton.enterName) {
+                backgroundColor = KeyboardButton.labelColor
+            } else {
+                backgroundColor = KeyboardButton.bgColor
+            }
+
+            if (isPrintable()) {
+                UIView.animate(withDuration: 0.04, animations: {
+                    self.transform = .identity
+                })
+            }
+        }
     }
 }
