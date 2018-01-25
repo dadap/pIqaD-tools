@@ -46,7 +46,11 @@ class KeyboardViewController: UIInputViewController {
     }
 
     @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
-        handleInputModeList(from: sender, with: event)
+        if #available(iOSApplicationExtension 10.0, *) {
+            handleInputModeList(from: sender, with: event)
+        } else {
+            advanceToNextInputMode()
+        }
     }
 
     @IBAction func keyUp(sender: KeyboardButton) {
@@ -118,7 +122,11 @@ class KeyboardViewController: UIInputViewController {
                 key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
                 nextKeyboardButton = key
 
-                if needsInputModeSwitchKey {
+                if #available(iOSApplicationExtension 11.0, *) {
+                    if needsInputModeSwitchKey {
+                        keys.append(key)
+                    }
+                } else {
                     keys.append(key)
                 }
             } else {
