@@ -12,10 +12,10 @@ class KeyboardViewController: UIInputViewController {
     var keyboard: UIStackView = UIStackView()
 
     @IBOutlet var nextKeyboardButton: UIButton!
-    
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
-        
+
         // Add custom view sizing constraints here
     }
 
