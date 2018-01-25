@@ -113,10 +113,6 @@ class KeyboardViewController: UIInputViewController {
 
         for name in names {
             let key = KeyboardButton(label: name)
-            key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: KeyboardButton.fontSize)
-            key.setTitleColor(KeyboardButton.labelColor, for: .normal)
-            key.backgroundColor = KeyboardButton.bgColor
-            key.layer.cornerRadius = KeyboardButton.cornerRadius
 
             if (name == KeyboardButton.switchName) {
                 key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
@@ -173,7 +169,11 @@ class KeyboardViewController: UIInputViewController {
         init(label: String) {
             super.init(frame: .zero)
 
-            self.setTitle(label, for: [])
+            setTitle(label, for: [])
+            titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: KeyboardButton.fontSize)
+            setTitleColor(KeyboardButton.labelColor, for: .normal)
+            backgroundColor = KeyboardButton.bgColor
+            layer.cornerRadius = KeyboardButton.cornerRadius
         }
 
         required init?(coder: NSCoder) {
