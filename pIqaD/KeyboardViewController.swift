@@ -146,7 +146,7 @@ class KeyboardViewController: UIInputViewController {
         static let bgColor = UIColor.lightGray
         static let labelColor = UIColor.red
 
-        static let backspaceName = "⇦"
+        static let backspaceName = "⌫"
         static let switchName = ""
         static let spaceName = ""
         static let enterName = ""
@@ -169,8 +169,14 @@ class KeyboardViewController: UIInputViewController {
         init(label: String) {
             super.init(frame: .zero)
 
+            var fontSize = KeyboardButton.fontSize
+
+            if label == KeyboardButton.backspaceName {
+                fontSize /= 2
+            }
+
             setTitle(label, for: [])
-            titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: KeyboardButton.fontSize)
+            titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: fontSize)
             setTitleColor(KeyboardButton.labelColor, for: .normal)
             backgroundColor = KeyboardButton.bgColor
             layer.cornerRadius = KeyboardButton.cornerRadius
