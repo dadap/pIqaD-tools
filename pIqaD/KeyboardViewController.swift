@@ -39,8 +39,8 @@ class KeyboardViewController: UIInputViewController {
         self.view.addSubview(keyboard)
 
         let viewsDictionary = ["keyRows":keyboard]
-        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
-        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-4-[keyRows]-4-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
+        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(KeyboardButton.buttonSpacing)-[keyRows]-\(KeyboardButton.buttonSpacing)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
+        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(KeyboardButton.buttonSpacing)-[keyRows]-\(KeyboardButton.buttonSpacing)-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
         view.addConstraints(stackView_H)
         view.addConstraints(stackView_V)
     }
@@ -86,7 +86,7 @@ class KeyboardViewController: UIInputViewController {
 
         keyboard.axis = .vertical
         keyboard.translatesAutoresizingMaskIntoConstraints = false
-        keyboard.spacing = 4
+        keyboard.spacing = KeyboardButton.buttonSpacing
 
         for nameRow in KeyboardButton.keyNames {
             let row = makeRow(names: nameRow)
@@ -98,7 +98,7 @@ class KeyboardViewController: UIInputViewController {
             }
             row.alignment = .fill
             row.translatesAutoresizingMaskIntoConstraints = false
-            row.spacing = 4
+            row.spacing = KeyboardButton.buttonSpacing
             row.sizeToFit()
             keyboard.addArrangedSubview(row)
         }
@@ -113,10 +113,10 @@ class KeyboardViewController: UIInputViewController {
 
         for name in names {
             let key = KeyboardButton(label: name)
-            key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: 26)
+            key.titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: KeyboardButton.fontSize)
             key.setTitleColor(KeyboardButton.labelColor, for: .normal)
             key.backgroundColor = KeyboardButton.bgColor
-            key.layer.cornerRadius = 6
+            key.layer.cornerRadius = KeyboardButton.cornerRadius
 
             if (name == KeyboardButton.switchName) {
                 key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
@@ -155,6 +155,14 @@ class KeyboardViewController: UIInputViewController {
         static let spaceName = ""
         static let enterName = ""
 
+        static let fontSize = CGFloat(26)
+        static let buttonSpacing = CGFloat(4)
+        static let cornerRadius = CGFloat(6)
+
+        static let animationDuration = 0.04
+        static let resizeFactor = CGFloat(1.25)
+        static let yTransform = CGFloat(-39)
+
         static let keyNames = [["", "", "", "", "", "", "", "", "", ""],
                                ["", "", "", "", "", "", "", "", "", ""],
                                ["", "", "", "", "", "", "", "", "", ""],
@@ -180,8 +188,8 @@ class KeyboardViewController: UIInputViewController {
             backgroundColor = .white
 
             if (isPrintable()) {
-                UIView.animate(withDuration: 0.04, animations: {
-                    self.transform = CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 0, ty: -39)
+                UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
+                    self.transform = CGAffineTransform(a: KeyboardButton.resizeFactor, b: 0, c: 0, d: KeyboardButton.resizeFactor, tx: 0, ty: KeyboardButton.yTransform)
                 })
             }
         }
@@ -194,7 +202,7 @@ class KeyboardViewController: UIInputViewController {
             }
 
             if (isPrintable()) {
-                UIView.animate(withDuration: 0.04, animations: {
+                UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
                     self.transform = .identity
                 })
             }
