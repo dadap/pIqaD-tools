@@ -157,7 +157,7 @@ class KeyboardViewController: UIInputViewController {
 
         static let animationDuration = 0.04
         static let resizeFactor = CGFloat(1.25)
-        static let yTransform = CGFloat(-39)
+        static let yTranslation = CGFloat(-39)
 
         static let keyNames = [["", "", "", "", "", "", "", "", "", ""],
                                ["", "", "", "", "", "", "", "", "", ""],
@@ -195,7 +195,7 @@ class KeyboardViewController: UIInputViewController {
 
             if (isPrintable()) {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
-                    self.transform = CGAffineTransform(a: KeyboardButton.resizeFactor, b: 0, c: 0, d: KeyboardButton.resizeFactor, tx: 0, ty: KeyboardButton.yTransform)
+                    self.transform = CGAffineTransform(a: KeyboardButton.resizeFactor, b: 0, c: 0, d: KeyboardButton.resizeFactor, tx: 0, ty: KeyboardButton.yTranslation)
                 })
             }
         }
