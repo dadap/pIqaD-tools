@@ -16,7 +16,10 @@ class KeyboardViewController: UIInputViewController {
     override func updateViewConstraints() {
         super.updateViewConstraints()
 
-        // Add custom view sizing constraints here
+        view.addConstraint(NSLayoutConstraint(item: keyboard, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: KeyboardButton.buttonSpacing))
+        view.addConstraint(NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: keyboard, attribute: .right, multiplier: 1, constant: KeyboardButton.buttonSpacing))
+        view.addConstraint(NSLayoutConstraint(item: keyboard, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: KeyboardButton.buttonSpacing))
+        view.addConstraint(NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: keyboard, attribute: .bottom, multiplier: 1, constant: KeyboardButton.buttonSpacing))
     }
 
     func initKeyboard() {
@@ -36,13 +39,7 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.addSubview(keyboard)
-
-        let viewsDictionary = ["keyRows":keyboard]
-        let stackView_H = NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(KeyboardButton.buttonSpacing)-[keyRows]-\(KeyboardButton.buttonSpacing)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: viewsDictionary)
-        let stackView_V = NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(KeyboardButton.buttonSpacing)-[keyRows]-\(KeyboardButton.buttonSpacing)-|", options: NSLayoutFormatOptions(rawValue:0), metrics: nil, views: viewsDictionary)
-        view.addConstraints(stackView_H)
-        view.addConstraints(stackView_V)
+        view.addSubview(keyboard)
     }
 
     @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
