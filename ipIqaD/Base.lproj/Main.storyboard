@@ -10,8 +10,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Klingon-pIqaD-HaSta.ttf">
-            <string>Klingonpiqadhasta</string>
+        <array key="pIqaD.ttf">
+            <string>pIqaD</string>
         </array>
     </customFonts>
     <scenes>
@@ -26,7 +26,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="  " translatesAutoresizingMaskIntoConstraints="NO" id="cUW-hV-VaF">
                                 <rect key="frame" x="0.0" y="64" width="375" height="714"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Klingonpiqadhasta" family="Klingon pIqaD HaSta" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="pIqaD" family="pIqaD" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>

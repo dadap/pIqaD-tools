@@ -207,7 +207,8 @@ class KeyboardViewController: UIInputViewController {
         static let bgColor = UIColor.lightGray
         static let labelColor = UIColor.red
 
-        static let fontSize = CGFloat(26)
+        static let fontName = "Piqad"
+        static let fontSize = CGFloat(20)
         static let buttonSpacing = CGFloat(4)
         static let cornerRadius = CGFloat(6)
 
@@ -225,7 +226,7 @@ class KeyboardViewController: UIInputViewController {
             }
 
             setTitle(label, for: [])
-            titleLabel?.font = UIFont(name: "Klingonpiqadhasta", size: fontSize)
+            titleLabel?.font = UIFont(name: KeyboardButton.fontName, size: fontSize)
             setTitleColor(KeyboardButton.labelColor, for: .normal)
             backgroundColor = KeyboardButton.bgColor
             layer.cornerRadius = KeyboardButton.cornerRadius

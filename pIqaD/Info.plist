@@ -22,7 +22,7 @@
 	<string>1</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Klingon-pIqaD-HaSta.ttf</string>
+		<string>pIqaD.ttf</string>
 	</array>
 	<key>NSExtension</key>
 	<dict>
