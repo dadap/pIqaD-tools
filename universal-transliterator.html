@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Klingon Universal Transliterator</title>
+</head>
+<body onload="populate()">
+<h1>Klingon Universal Transliterator</h1>
+<p>Type Klingon text using the standard Okrandian transliteration, the xifan hol
+transliteration, or pIqaD encoded with the Conscript Unicode Private Use Area
+mapping, into the appropriate box below. It will automatically be transliterated
+into the other two representations, in their respective boxes.</p>
+<p>This tool uses JavaScript to perform the transliteration locally within your
+web browser. It does not transmit the text you are transliterating over the
+network, but it does require that JavaScript be enabled in your web browser.</p>
+<h2>tlhIngan Hol</h2>
+    <textarea id="tlhIngan-Hol" oninput="transliterate(this)"></textarea>
+<h2>xifan hol</h2>
+    <textarea id="xifan-hol" oninput="transliterate(this)"></textarea>
+<h2></h2>
+    <textarea id="pIqaD" oninput="transliterate(this)"></textarea>
+
+<script>
+// Transliteration tables: don't bother mapping identity relationships for
+// tlhIngan-Hol <-> xifan-hol
+
+let x2p = {
+    'a': '', 'b': '', 'c': '', 'd': '', 'e': '', 'f': '', 'g': '',
+    'h': '', 'i': '', 'j': '', 'k': '', 'l': '', 'm': '', 'n': '',
+    'o': '', 'p': '', 'q': '', 'r': '', 's': '', 't': '', 'u': '',
+    'v': '', 'w': '', 'x': '', 'y': '', 'z': '', '0': '', '1': '',
+    '2': '', '3': '', '4': '', '5': '', '6': '', '7': '', '8': '',
+    '9': '', ',': '', '.': '', '`': ''
+};
+
+let x2tlh = {
+    'c': 'ch',  'd': 'D',   'f': 'ng',  'g': 'gh',  'h': 'H',   'i': 'I',
+    'k': 'q',   'q': 'Q',   's': 'S',   'x': 'tlh', 'z': '\''
+};
+
+function toxifan(source) {
+    var ret = source.value;
+
+    if (source.id == "tlhIngan-Hol") {
+        // Handle {ng} and {tlh} first, to prevent {n}, {t}, and {l} from
+        // spuriously being pulled out of these letters.
+        ret = ret.replace(/ng/g, 'f');
+        ret = ret.replace(/tlh/g, 'x');
+
+        Object.keys(x2tlh).forEach(function(key) {
+            ret = ret.replace(new RegExp(x2tlh[key], 'g'), key)
+        });
+    } else if (source.id == "pIqaD") {
+        Object.keys(x2p).forEach(function(key) {
+            ret = ret.replace(new RegExp(x2p[key], 'g'), key)
+        });
+    }
+
+    return ret;
+}
+
+function topIqaD(xifan) {
+    var ret = '';
+
+    for (var i = 0; i < xifan.length; i++) {
+        var c = x2p[xifan.charAt(i)];
+
+        if (c) {
+            ret += c;
+        } else {
+            ret += xifan.charAt(i);
+        }
+    }
+
+    return ret;
+}
+
+function totlhInganHol(xifan) {
+    var ret = '';
+
+    for (var i = 0; i < xifan.length; i++) {
+        var c = x2tlh[xifan.charAt(i)];
+
+        if (c) {
+            ret += c;
+        } else {
+            ret += xifan.charAt(i);
+        }
+    }
+
+    return ret;
+}
+
+function transliterate(source) {
+    // Use xifan-hol as an intermediate representation
+    let xifan = toxifan(source);
+
+    if (source.id != "tlhIngan-Hol") {
+        document.getElementById("tlhIngan-Hol").value = totlhInganHol(xifan);
+    }
+
+    if (source.id != "xifan-hol") {
+        document.getElementById("xifan-hol").value = xifan;
+    }
+
+    if (source.id != "pIqaD") {
+        document.getElementById("pIqaD").value = topIqaD(xifan);
+    }
+}
+
+function populate() {
+    var xifan = document.getElementById("xifan-hol");
+
+    xifan.value = 'xifan hol gixluzmeh qaq jajvam.';
+    transliterate(xifan);
+}
+</script>
+
+</body>
+</html>
