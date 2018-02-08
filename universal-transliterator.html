@@ -42,6 +42,9 @@ function toxifan(source) {
     var ret = source.value;
 
     if (source.id == "tlhIngan-Hol") {
+        // Make smart quotes dumb again
+        ret = ret.replace(/[‘’]/g, '\'');
+
         // Handle {ng} and {tlh} first, to prevent {n}, {t}, and {l} from
         // spuriously being pulled out of these letters.
         ret = ret.replace(/ng/g, 'f');
