@@ -45,6 +45,10 @@ function toxifan(source) {
         // Make smart quotes dumb again
         ret = ret.replace(/[‘’]/g, '\'');
 
+        // Replace {gh} with non-standard {G}, to prevent {ngh} from being
+        // matched as {ng}, *{h}.
+        ret = ret.replace(/gh/g, 'G');
+
         // Handle {ng} and {tlh} first, to prevent {n}, {t}, and {l} from
         // spuriously being pulled out of these letters.
         ret = ret.replace(/ng/g, 'f');
@@ -53,6 +57,9 @@ function toxifan(source) {
         Object.keys(x2tlh).forEach(function(key) {
             ret = ret.replace(new RegExp(x2tlh[key], 'g'), key)
         });
+
+        // Now that all {ng}s have been processed, it's safe for {gh} to be 'g'
+        ret = ret.replace(/G/g, 'g');
     } else if (source.id == "pIqaD") {
         Object.keys(x2p).forEach(function(key) {
             ret = ret.replace(new RegExp(x2p[key], 'g'), key)
