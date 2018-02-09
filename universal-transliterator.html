@@ -46,9 +46,6 @@ function toxifan(source) {
     var ret = source.value;
 
     if (source.id == "tlhIngan-Hol") {
-        // Make smart quotes dumb again
-        ret = ret.replace(/[‘’]/g, '\'');
-
         // Replace {gh} with non-standard {G}, to prevent {ngh} from being
         // matched as {ng}, *{h}.
         ret = ret.replace(/gh/g, 'G');
@@ -106,6 +103,11 @@ function totlhInganHol(xifan) {
 }
 
 function transliterate(source) {
+    if (source.id == "tlhIngan-Hol") {
+        // Make smart quotes dumb again
+        source.value = source.value.replace(/[‘’]/g, '\'');
+    }
+
     // Use xifan-hol as an intermediate representation
     let xifan = toxifan(source);
 
