@@ -17,10 +17,9 @@ Acknowledgements
 
 Klingon is a registered trademark of CBS Studios Inc.
 
-The Universal Transliterator uses the "pIqaD" font by qurgh, downloaded from:
+The Universal Transliterator uses the "pIqaD qolqoS" font, available at:
 
-https://hol.kag.org/pIqaDFontsNormalAndWeb.zip
+https://github.com/dadap/pIqaD-fonts
 
-This link is visible at the front page of https://hol.kag.org, which carries
-the notice: "These [fonts] are free to use, but we ask that this page is
-mentioned if they are used in a commercial product."
+This font is distributed under the SIL Open Font License. For more details, see
+the full license text at universal-transliterator/pIqaD-qolqoS.LICENSE

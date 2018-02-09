@@ -6,12 +6,12 @@
 }
 
 @font-face {
-    font-family: "qurgh-pIqaD";
-    src: url("./qurgh-pIqaD.woff") format("woff");
+    font-family: "pIqaD-qolqoS";
+    src: url("./pIqaD-qolqoS.ttf") format("truetype");
 }
 
 .pIqaD, .pIqaD * {
-    font-family: "qurgh-pIqaD" !important;
+    font-family: "pIqaD-qolqoS" !important;
 }
 
 @media (min-width: 900px) {
