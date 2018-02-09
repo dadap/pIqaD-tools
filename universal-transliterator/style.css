@@ -22,4 +22,8 @@
         width: 31%;
         padding-left: 2%;
     }
+
+    .input > textarea {
+        min-height: 240px;
+    }
 }
