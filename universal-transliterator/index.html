@@ -7,19 +7,17 @@
 <title>Klingon Universal Transliterator</title>
 </head>
 <body onload="populate()">
+
 <h1>Klingon Universal Transliterator</h1>
+
+<div id="intro">
 <p>Type Klingon text using the standard Okrandian transliteration, the xifan hol
 transliteration, or pIqaD encoded with the Conscript Unicode Private Use Area
 mapping, into the appropriate box below. It will automatically be transliterated
 into the other two representations, in their respective boxes.</p>
-<p>You may also supply text to be transliterated via a GET parameter in the URL:
-set the "xifan" GET parameter to a string encoded in the "xifan hol" scheme.
-For example appending, <a href="?xifan=qaplaz">?xifan=qaplaz</a> to the URL will
-produce "Qapla'" in the "tlhIngan Hol" box, and
-"<span class="pIqaD"></span>" in the pIqaD box.</p>
-<p>This tool uses JavaScript to perform the transliteration locally within your
-web browser. It does not transmit the text you are transliterating over the
-network, but it does require that JavaScript be enabled in your web browser.</p>
+</div>
+
+<div id="input-boxes">
 <div class="input">
     <h2>tlhIngan Hol</h2>
     <textarea id="tlhIngan-Hol" oninput="transliterate(this)"></textarea>
@@ -35,6 +33,19 @@ network, but it does require that JavaScript be enabled in your web browser.</p>
 <div class="input pIqaD">
     <h2></h2>
     <textarea id="pIqaD" oninput="transliterate(this)"></textarea>
+</div>
+</div>
+
+<div id="detailed-help">
+<p>You may also supply text to be transliterated via a GET parameter in the URL:
+set the "xifan" GET parameter to a string encoded in the "xifan hol" scheme.
+For example appending, <a href="?xifan=qaplaz">?xifan=qaplaz</a> to the URL will
+produce "Qapla'" in the "tlhIngan Hol" box, and
+"<span class="pIqaD"></span>" in the pIqaD box.</p>
+
+<p>This tool uses JavaScript to perform the transliteration locally within your
+web browser. It does not transmit the text you are transliterating over the
+network, but it does require that JavaScript be enabled in your web browser.</p>
 </div>
 
 <script>

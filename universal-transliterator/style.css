@@ -7,6 +7,11 @@
     font-family: serif, monospace;
 }
 
+#detailed-help {
+    padding-top: 1em;
+    clear: both;
+}
+
 @font-face {
     font-family: "pIqaD-qolqoS";
     src: url("./pIqaD-qolqoS.ttf") format("truetype");
