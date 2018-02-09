@@ -10,6 +10,10 @@
 transliteration, or pIqaD encoded with the Conscript Unicode Private Use Area
 mapping, into the appropriate box below. It will automatically be transliterated
 into the other two representations, in their respective boxes.</p>
+<p>You may also supply text to be transliterated via a GET parameter in the URL:
+set the "xifan" GET parameter to a string encoded in the "xifan hol" scheme.
+For example appending, <a href="?xifan=qaplaz">?xifan=qaplaz</a> to the URL will
+produce "Qapla'" in the "tlhIngan Hol" box, and "" in the pIqaD box.</p>
 <p>This tool uses JavaScript to perform the transliteration locally within your
 web browser. It does not transmit the text you are transliterating over the
 network, but it does require that JavaScript be enabled in your web browser.</p>
@@ -118,10 +122,28 @@ function transliterate(source) {
     }
 }
 
+function get_parameter(name) {
+    let re = RegExp('(\\?|&)' + name + '\\=([^&]*)');
+    let match = window.location.search.match(re);
+
+    if (match != null) {
+        return decodeURIComponent(match[2].replace(/\+/g, ' '))
+    } else {
+        return null
+    }
+}
+
 function populate() {
     var xifan = document.getElementById("xifan-hol");
 
-    xifan.value = 'xifan hol gixluzmeh qaq jajvam.';
+    var get_input = get_parameter('xifan');
+
+    if (get_input) {
+        xifan.value = get_input;
+    } else {
+        xifan.value = 'xifan hol gixluzmeh qaq jajvam.';
+    }
+
     transliterate(xifan);
 }
 </script>
