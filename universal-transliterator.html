@@ -19,6 +19,8 @@ web browser. It does not transmit the text you are transliterating over the
 network, but it does require that JavaScript be enabled in your web browser.</p>
 <h2>tlhIngan Hol</h2>
     <textarea id="tlhIngan-Hol" oninput="transliterate(this)"></textarea>
+    <input type="checkbox" id="desmartify" checked />
+    <label>De-smartify single quotes</label>
 <h2>xifan hol</h2>
     <textarea id="xifan-hol" oninput="transliterate(this)"></textarea>
 <h2></h2>
@@ -102,8 +104,12 @@ function totlhInganHol(xifan) {
     return ret;
 }
 
+function is_checked(id) {
+    return document.getElementById(id).checked
+}
+
 function transliterate(source) {
-    if (source.id == "tlhIngan-Hol") {
+    if (source.id == "tlhIngan-Hol" && is_checked('desmartify')) {
         // Make smart quotes dumb again
         source.value = source.value.replace(/[‘’]/g, '\'');
     }
