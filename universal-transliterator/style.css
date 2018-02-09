@@ -2,7 +2,9 @@
     width: 98%;
     min-height: 60px;
     font-size: 12pt;
-    font-family: serif;
+    /* prefer serif/monospace fonts, as these are more likely to have distinct
+     * glyphs for 'I' and 'l' */
+    font-family: serif, monospace;
 }
 
 @font-face {
