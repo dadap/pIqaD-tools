@@ -13,18 +13,27 @@ into the other two representations, in their respective boxes.</p>
 <p>You may also supply text to be transliterated via a GET parameter in the URL:
 set the "xifan" GET parameter to a string encoded in the "xifan hol" scheme.
 For example appending, <a href="?xifan=qaplaz">?xifan=qaplaz</a> to the URL will
-produce "Qapla'" in the "tlhIngan Hol" box, and "" in the pIqaD box.</p>
+produce "Qapla'" in the "tlhIngan Hol" box, and
+"<span class="pIqaD"></span>" in the pIqaD box.</p>
 <p>This tool uses JavaScript to perform the transliteration locally within your
 web browser. It does not transmit the text you are transliterating over the
 network, but it does require that JavaScript be enabled in your web browser.</p>
-<h2>tlhIngan Hol</h2>
+<div class="input">
+    <h2>tlhIngan Hol</h2>
     <textarea id="tlhIngan-Hol" oninput="transliterate(this)"></textarea>
+    <div class="inputcontrol">
     <input type="checkbox" id="desmartify" checked />
     <label>De-smartify single quotes</label>
-<h2>xifan hol</h2>
+    </div>
+</div>
+<div class="input">
+    <h2>xifan hol</h2>
     <textarea id="xifan-hol" oninput="transliterate(this)"></textarea>
-<h2></h2>
+</div>
+<div class="input pIqaD">
+    <h2></h2>
     <textarea id="pIqaD" oninput="transliterate(this)"></textarea>
+</div>
 
 <script>
 // Transliteration tables: don't bother mapping identity relationships for
