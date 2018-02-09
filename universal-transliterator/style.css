@@ -1,0 +1,23 @@
+.input > textarea {
+    width: 98%;
+    min-height: 60px;
+    font-size: 12pt;
+    font-family: serif;
+}
+
+@font-face {
+    font-family: "qurgh-pIqaD";
+    src: url("./qurgh-pIqaD.woff") format("woff");
+}
+
+.pIqaD, .pIqaD * {
+    font-family: "qurgh-pIqaD" !important;
+}
+
+@media (min-width: 900px) {
+    .input {
+        float: left;
+        width: 31%;
+        padding-left: 2%;
+    }
+}
