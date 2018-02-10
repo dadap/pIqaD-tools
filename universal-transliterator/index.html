@@ -58,7 +58,7 @@ network, but it does require that JavaScript be enabled in your web browser.</p>
 // Transliteration tables: don't bother mapping identity relationships for
 // tlhIngan-Hol <-> xifan-hol
 
-let x2p = {
+var x2p = {
     'a': '', 'b': '', 'c': '', 'd': '', 'e': '', 'f': '', 'g': '',
     'h': '', 'i': '', 'j': '', 'k': '', 'l': '', 'm': '', 'n': '',
     'o': '', 'p': '', 'q': '', 'r': '', 's': '', 't': '', 'u': '',
@@ -67,7 +67,7 @@ let x2p = {
     '9': '', ',': '', '.': '', '`': ''
 };
 
-let x2tlh = {
+var x2tlh = {
     'c': 'ch',  'd': 'D',   'f': 'ng',  'g': 'gh',  'h': 'H',   'i': 'I',
     'k': 'q',   'q': 'Q',   's': 'S',   'x': 'tlh', 'z': '\''
 };
@@ -143,7 +143,7 @@ function transliterate(source) {
     }
 
     // Use xifan-hol as an intermediate representation
-    let xifan = toxifan(source);
+    var xifan = toxifan(source);
 
     if (source.id != "tlhIngan-Hol") {
         document.getElementById("tlhIngan-Hol").value = totlhInganHol(xifan);
@@ -159,8 +159,8 @@ function transliterate(source) {
 }
 
 function get_parameter(name) {
-    let re = RegExp('(\\?|&)' + name + '\\=([^&]*)');
-    let match = window.location.search.match(re);
+    var re = RegExp('(\\?|&)' + name + '\\=([^&]*)');
+    var match = window.location.search.match(re);
 
     if (match != null) {
         return decodeURIComponent(match[2].replace(/\+/g, ' '))
@@ -179,7 +179,7 @@ function populate() {
     } else {
         // Most of these quotes are intentionally corrupted. Any nonsensicalness
         // was most likely intended, but may also be the result of a typo.
-        let quotes = [
+        var quotes = [
             'xifan hol gixluzmeh qaq jajvam.',
             'kajunpaqheylijmoz bax dusuvkaf cargwiz zit.',
             'beg tuj jabluzdiz reh qaqkuz jengvaz.',
