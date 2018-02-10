@@ -59,41 +59,85 @@ network, but it does require that JavaScript be enabled in your web browser.</p>
 // tlhIngan-Hol <-> xifan-hol
 
 var x2p = {
-    'a': '', 'b': '', 'c': '', 'd': '', 'e': '', 'f': '', 'g': '',
-    'h': '', 'i': '', 'j': '', 'k': '', 'l': '', 'm': '', 'n': '',
-    'o': '', 'p': '', 'q': '', 'r': '', 's': '', 't': '', 'u': '',
-    'v': '', 'w': '', 'x': '', 'y': '', 'z': '', '0': '', '1': '',
-    '2': '', '3': '', '4': '', '5': '', '6': '', '7': '', '8': '',
-    '9': '', ',': '', '.': '', '`': ''
+    "a": "",
+    "b": "",
+    "c": "",
+    "d": "",
+    "e": "",
+    "f": "",
+    "g": "",
+    "h": "",
+    "i": "",
+    "j": "",
+    "k": "",
+    "l": "",
+    "m": "",
+    "n": "",
+    "o": "",
+    "p": "",
+    "q": "",
+    "r": "",
+    "s": "",
+    "t": "",
+    "u": "",
+    "v": "",
+    "w": "",
+    "x": "",
+    "y": "",
+    "z": "",
+    "0": "",
+    "1": "",
+    "2": "",
+    "3": "",
+    "4": "",
+    "5": "",
+    "6": "",
+    "7": "",
+    "8": "",
+    "9": "",
+    ",": "",
+    ".": "",
+    "`": ""
 };
 
 var x2tlh = {
-    'c': 'ch',  'd': 'D',   'f': 'ng',  'g': 'gh',  'h': 'H',   'i': 'I',
-    'k': 'q',   'q': 'Q',   's': 'S',   'x': 'tlh', 'z': '\''
+    "c": "ch",
+    "d": "D",
+    "f": "ng",
+    "g": "gh",
+    "h": "H",
+    "i": "I",
+    "k": "q",
+    "q": "Q",
+    "s": "S",
+    "x": "tlh",
+    "z": "'"
 };
 
 function toxifan(source) {
+    "use strict";
+
     var ret = source.value;
 
-    if (source.id == "tlhIngan-Hol") {
+    if (source.id === "tlhIngan-Hol") {
         // Replace {gh} with non-standard {G}, to prevent {ngh} from being
         // matched as {ng}, *{h}.
-        ret = ret.replace(/gh/g, 'G');
+        ret = ret.replace(/gh/g, "G");
 
         // Handle {ng} and {tlh} first, to prevent {n}, {t}, and {l} from
         // spuriously being pulled out of these letters.
-        ret = ret.replace(/ng/g, 'f');
-        ret = ret.replace(/tlh/g, 'x');
+        ret = ret.replace(/ng/g, "f");
+        ret = ret.replace(/tlh/g, "x");
 
-        Object.keys(x2tlh).forEach(function(key) {
-            ret = ret.replace(new RegExp(x2tlh[key], 'g'), key)
+        Object.keys(x2tlh).forEach(function (key) {
+            ret = ret.replace(new RegExp(x2tlh[key], "g"), key);
         });
 
         // Now that all {ng}s have been processed, it's safe for {gh} to be 'g'
-        ret = ret.replace(/G/g, 'g');
-    } else if (source.id == "pIqaD") {
-        Object.keys(x2p).forEach(function(key) {
-            ret = ret.replace(new RegExp(x2p[key], 'g'), key)
+        ret = ret.replace(/G/g, "g");
+    } else if (source.id === "pIqaD") {
+        Object.keys(x2p).forEach(function (key) {
+            ret = ret.replace(new RegExp(x2p[key], "g"), key);
         });
     }
 
@@ -101,78 +145,98 @@ function toxifan(source) {
 }
 
 function topIqaD(xifan) {
-    var ret = '';
+    "use strict";
 
-    for (var i = 0; i < xifan.length; i++) {
-        var c = x2p[xifan.charAt(i)];
+    var ret = "";
+    var i = 0;
+    var c;
+
+    while (i < xifan.length) {
+        c = x2p[xifan.charAt(i)];
 
         if (c) {
             ret += c;
         } else {
             ret += xifan.charAt(i);
         }
+
+        i += 1;
     }
 
     return ret;
 }
 
 function totlhInganHol(xifan) {
-    var ret = '';
+    "use strict";
 
-    for (var i = 0; i < xifan.length; i++) {
-        var c = x2tlh[xifan.charAt(i)];
+    var ret = "";
+    var i = 0;
+    var c;
+
+    while (i < xifan.length) {
+        c = x2tlh[xifan.charAt(i)];
 
         if (c) {
             ret += c;
         } else {
             ret += xifan.charAt(i);
         }
+
+        i += 1;
     }
 
     return ret;
 }
 
 function is_checked(id) {
-    return document.getElementById(id).checked
+    "use strict";
+
+    return document.getElementById(id).checked;
 }
 
 function transliterate(source) {
-    if (source.id == "tlhIngan-Hol" && is_checked('desmartify')) {
+    "use strict";
+
+    if (source.id === "tlhIngan-Hol" && is_checked("desmartify")) {
         // Make smart quotes dumb again
-        source.value = source.value.replace(/[‘’]/g, '\'');
+        source.value = source.value.replace(/[‘’]/g, "'");
     }
 
     // Use xifan-hol as an intermediate representation
     var xifan = toxifan(source);
 
-    if (source.id != "tlhIngan-Hol") {
+    if (source.id !== "tlhIngan-Hol") {
         document.getElementById("tlhIngan-Hol").value = totlhInganHol(xifan);
     }
 
-    if (source.id != "xifan-hol") {
+    if (source.id !== "xifan-hol") {
         document.getElementById("xifan-hol").value = xifan;
     }
 
-    if (source.id != "pIqaD") {
+    if (source.id !== "pIqaD") {
         document.getElementById("pIqaD").value = topIqaD(xifan);
     }
 }
 
 function get_parameter(name) {
-    var re = RegExp('(\\?|&)' + name + '\\=([^&]*)');
+    "use strict";
+
+    var re = new RegExp("(\\?|&)" + name + "\\=([^&]*)");
     var match = window.location.search.match(re);
 
-    if (match != null) {
-        return decodeURIComponent(match[2].replace(/\+/g, ' '))
+    if (match !== null) {
+        return decodeURIComponent(match[2].replace(/\+/g, " "));
     } else {
-        return null
+        return null;
     }
 }
 
 function populate() {
+    "use strict";
+
     var xifan = document.getElementById("xifan-hol");
 
-    var get_input = get_parameter('xifan');
+    var get_input = get_parameter("xifan");
 
     if (get_input) {
         xifan.value = get_input;
@@ -180,19 +244,19 @@ function populate() {
         // Most of these quotes are intentionally corrupted. Any nonsensicalness
         // was most likely intended, but may also be the result of a typo.
         var quotes = [
-            'xifan hol gixluzmeh qaq jajvam.',
-            'kajunpaqheylijmoz bax dusuvkaf cargwiz zit.',
-            'beg tuj jabluzdiz reh qaqkuz jengvaz.',
-            'holvex zoh nuk, rin. howlvex zoh nuk, rin. holvex zoh nuk, rin.',
-            'xifan mah, tah pag tahbez.',
-            'kaleglah, kirk. coleglahzaz.',
-            'ziw winej. ziw hik yap tuzluzbez.',
-            'hablij quc, terazfan petaq.',
-            'veqduj gah soslizzez.',
-            'keylis, zamerizkaz sepjijqaz yidunkazmoh, reh.',
-            'suvwiz xux vineh. pizrun nah viycorg vineh.',
-            'vok jih, soswiz puklod.',
-            'teznagrazdak zaktuz mellotaz je.',
+            "xifan hol gixluzmeh qaq jajvam.",
+            "kajunpaqheylijmoz bax dusuvkaf cargwiz zit.",
+            "beg tuj jabluzdiz reh qaqkuz jengvaz.",
+            "holvex zoh nuk, rin. howlvex zoh nuk, rin. holvex zoh nuk, rin.",
+            "xifan mah, tah pag tahbez.",
+            "kaleglah, kirk. coleglahzaz.",
+            "ziw winej. ziw hik yap tuzluzbez.",
+            "hablij quc, terazfan petaq.",
+            "veqduj gah soslizzez.",
+            "keylis, zamerizkaz sepjijqaz yidunkazmoh, reh.",
+            "suvwiz xux vineh. pizrun nah viycorg vineh.",
+            "vok jih, soswiz puklod.",
+            "teznagrazdak zaktuz mellotaz je."
         ];
         xifan.value = quotes[Math.floor(Math.random() * quotes.length)];
     }
