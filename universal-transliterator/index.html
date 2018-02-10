@@ -177,7 +177,24 @@ function populate() {
     if (get_input) {
         xifan.value = get_input;
     } else {
-        xifan.value = 'xifan hol gixluzmeh qaq jajvam.';
+        // Most of these quotes are intentionally corrupted. Any nonsensicalness
+        // was most likely intended, but may also be the result of a typo.
+        let quotes = [
+            'xifan hol gixluzmeh qaq jajvam.',
+            'kajunpaqheylijmoz bax dusuvkaf cargwiz zit.',
+            'beg tuj jabluzdiz reh qaqkuz jengvaz.',
+            'holvex zoh nuk, rin. howlvex zoh nuk, rin. holvex zoh nuk, rin.',
+            'xifan mah, tah pag tahbez.',
+            'kaleglah, kirk. coleglahzaz.',
+            'ziw winej. ziw hik yap tuzluzbez.',
+            'hablij quc, terazfan petaq.',
+            'veqduj gah soslizzez.',
+            'keylis, zamerizkaz sepjijqaz yidunkazmoh, reh.',
+            'suvwiz xux vineh. pizrun nah viycorg vineh.',
+            'vok jih, soswiz puklod.',
+            'teznagrazdak zaktuz mellotaz je.',
+        ];
+        xifan.value = quotes[Math.floor(Math.random() * quotes.length)];
     }
 
     transliterate(xifan);
