@@ -16,10 +16,8 @@
 		42010D58200D36E900B8D880 /* ipIqaDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D57200D36E900B8D880 /* ipIqaDUITests.swift */; };
 		42010D6C200D37B800B8D880 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D6B200D37B800B8D880 /* KeyboardViewController.swift */; };
 		42010D70200D37B800B8D880 /* pIqaD.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 42010D69200D37B700B8D880 /* pIqaD.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4258E8F2201D787800CFB8A4 /* pIqaD.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4258E8F1201D787800CFB8A4 /* pIqaD.ttf */; };
-		4258E8F3201D787800CFB8A4 /* pIqaD.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4258E8F1201D787800CFB8A4 /* pIqaD.ttf */; };
-		4258E8F6201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4258E8F5201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig */; };
-		4258E8F7201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4258E8F5201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig */; };
+		421DBB8A202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */; };
+		421DBB8B202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +75,7 @@
 		42010D69200D37B700B8D880 /* pIqaD.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = pIqaD.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		42010D6B200D37B800B8D880 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		42010D6D200D37B800B8D880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4258E8F1201D787800CFB8A4 /* pIqaD.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pIqaD.ttf; sourceTree = "<group>"; };
-		4258E8F5201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "qurgh pIqaD.mobileconfig"; sourceTree = "<group>"; };
+		421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pIqaD-qolqoS.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +166,6 @@
 		42010D6A200D37B800B8D880 /* pIqaD */ = {
 			isa = PBXGroup;
 			children = (
-				4258E8F4201E5C8400CFB8A4 /* profiles */,
 				42010D75200D393700B8D880 /* fonts */,
 				42010D6B200D37B800B8D880 /* KeyboardViewController.swift */,
 				42010D6D200D37B800B8D880 /* Info.plist */,
@@ -180,17 +176,9 @@
 		42010D75200D393700B8D880 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				4258E8F1201D787800CFB8A4 /* pIqaD.ttf */,
+				421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */,
 			);
 			path = fonts;
-			sourceTree = "<group>";
-		};
-		4258E8F4201E5C8400CFB8A4 /* profiles */ = {
-			isa = PBXGroup;
-			children = (
-				4258E8F5201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig */,
-			);
-			path = profiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,10 +312,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4258E8F2201D787800CFB8A4 /* pIqaD.ttf in Resources */,
 				42010D42200D36E800B8D880 /* LaunchScreen.storyboard in Resources */,
+				421DBB8A202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */,
 				42010D3F200D36E800B8D880 /* Assets.xcassets in Resources */,
-				4258E8F6201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig in Resources */,
 				42010D3D200D36E800B8D880 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,8 +337,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4258E8F7201E5D7D00CFB8A4 /* qurgh pIqaD.mobileconfig in Resources */,
-				4258E8F3201D787800CFB8A4 /* pIqaD.ttf in Resources */,
+				421DBB8B202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

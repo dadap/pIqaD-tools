@@ -207,7 +207,7 @@ class KeyboardViewController: UIInputViewController {
         static let bgColor = UIColor.lightGray
         static let labelColor = UIColor.red
 
-        static let fontName = "Piqad"
+        static let fontName = "pIqaD qolqoS"
         static let fontSize = CGFloat(20)
         static let buttonSpacing = CGFloat(4)
         static let cornerRadius = CGFloat(6)
