@@ -12,6 +12,10 @@ text and pIqaD encoded with the encoding registered in the Conscript Unicode
 Registry in the Private Use Area of the Basic Multilingual Plane from U+F8D0
 to U+F8FF.
 
+A live version of the Universal Transliterator is available at:
+
+<https://dadap.github.io/pIqaD-tools/universal-transliterator/>
+
 Acknowledgements
 ----------------
 
