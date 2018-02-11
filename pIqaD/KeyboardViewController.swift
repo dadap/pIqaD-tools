@@ -213,8 +213,6 @@ class KeyboardViewController: UIInputViewController {
         static let cornerRadius = CGFloat(6)
 
         static let animationDuration = 0.04
-        static let resizeFactor = CGFloat(1.75)
-        static let yTranslation = CGFloat(0)
 
         init(label: String) {
             super.init(frame: .zero)
@@ -223,6 +221,8 @@ class KeyboardViewController: UIInputViewController {
 
             if label == Keyboard.backspaceName {
                 fontSize /= 2
+            } else {
+                contentVerticalAlignment = .top
             }
 
             setTitle(label, for: [])
@@ -249,8 +249,9 @@ class KeyboardViewController: UIInputViewController {
 
             if isPrintable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
-                    // TODO: display key label above key
-                    self.transform = CGAffineTransform(a: KeyboardButton.resizeFactor, b: 0, c: 0, d: KeyboardButton.resizeFactor, tx: 0, ty: KeyboardButton.yTranslation)
+                    self.transform = CGAffineTransform(a: 1, b: 0, c: 0, d: 2, tx: 0, ty: -self.layer.bounds.height/2)
+                    self.titleEdgeInsets = UIEdgeInsetsMake(-self.layer.bounds.height/4, 0, 0, 0)
+                    self.titleLabel?.transform = CGAffineTransform(scaleX: 1, y: 1/2)
                 })
             }
         }
@@ -265,6 +266,8 @@ class KeyboardViewController: UIInputViewController {
             if isPrintable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
                     self.transform = .identity
+                    self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+                    self.titleLabel?.transform = .identity
                 })
             }
         }
