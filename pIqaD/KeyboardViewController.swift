@@ -74,7 +74,7 @@ class KeyboardViewController: UIInputViewController {
                 }
             }
 
-            if (arrangedSubviews[0] as! KeyboardButton).isPrintable() {
+            if (arrangedSubviews[0] as! KeyboardButton).isPoppable() {
                 self.distribution = .fillEqually
             } else {
                 self.distribution = .fillProportionally
@@ -240,14 +240,20 @@ class KeyboardViewController: UIInputViewController {
             fatalError("init(coder:) not implemented")
         }
 
-        func isPrintable() -> Bool {
-            return self.currentTitle?.count == 1 && self.currentTitle != Keyboard.backspaceName
+        func hasDigit(string: String) -> Bool {
+            let digits = CharacterSet(charactersIn: "")
+            return string.rangeOfCharacter(from: digits) != nil
+        }
+
+        func isPoppable() -> Bool {
+            let title = self.currentTitle!
+            return title.count == 1 && title != Keyboard.backspaceName && !hasDigit(string: title)
         }
 
         func popOut() {
             backgroundColor = .white
 
-            if isPrintable() {
+            if isPoppable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
                     self.transform = CGAffineTransform(a: 1, b: 0, c: 0, d: 2, tx: 0, ty: -self.layer.bounds.height/2)
                     self.titleEdgeInsets = UIEdgeInsetsMake(-self.layer.bounds.height/4, 0, 0, 0)
@@ -263,7 +269,7 @@ class KeyboardViewController: UIInputViewController {
                 backgroundColor = KeyboardButton.bgColor
             }
 
-            if isPrintable() {
+            if isPoppable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
                     self.transform = .identity
                     self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
