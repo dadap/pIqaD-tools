@@ -230,6 +230,9 @@ class KeyboardViewController: UIInputViewController {
         static let buttonSpacing = CGFloat(4)
         static let cornerRadius = CGFloat(6)
 
+        static let xScale = CGFloat(1.25)
+        static let yScale = CGFloat(2.2)
+
         static let animationDuration = 0.04
 
         var selectedColor: UIColor = KeyboardButton.bgColor
@@ -273,9 +276,9 @@ class KeyboardViewController: UIInputViewController {
 
             if isPoppable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
-                    self.transform = CGAffineTransform(a: 1, b: 0, c: 0, d: 2, tx: 0, ty: -self.layer.bounds.height/2)
-                    self.titleEdgeInsets = UIEdgeInsetsMake(-self.layer.bounds.height/4, 0, 0, 0)
-                    self.titleLabel?.transform = CGAffineTransform(scaleX: 1, y: 1/2)
+                    self.transform = CGAffineTransform(a: KeyboardButton.xScale, b: 0, c: 0, d: KeyboardButton.yScale, tx: 0, ty: -self.layer.bounds.height/KeyboardButton.yScale)
+                    self.titleEdgeInsets = UIEdgeInsetsMake(-self.layer.bounds.height/KeyboardButton.yScale/2, 0, 0, 0)
+                    self.titleLabel?.transform = CGAffineTransform(scaleX: 1, y: KeyboardButton.xScale/KeyboardButton.yScale)
                 })
             }
         }
