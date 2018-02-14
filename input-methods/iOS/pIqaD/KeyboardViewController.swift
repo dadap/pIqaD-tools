@@ -105,7 +105,7 @@ class KeyboardViewController: UIInputViewController {
             isMultipleTouchEnabled = true
             axis = .vertical
             translatesAutoresizingMaskIntoConstraints = false
-            spacing = KeyboardButton.buttonSpacing
+            spacing = KeyboardButton.rowSpacing
 
             for nameRow in Keyboard.keyNames {
                 addArrangedSubview(KeyRow(keyNames: nameRow, keyboardVC: keyboardVC))
@@ -227,11 +227,12 @@ class KeyboardViewController: UIInputViewController {
 
         static let fontName = "pIqaD qolqoS"
         static let fontSize = CGFloat(20)
-        static let buttonSpacing = CGFloat(4)
+        static let buttonSpacing = CGFloat(6)
+        static let rowSpacing = CGFloat(9)
         static let cornerRadius = CGFloat(6)
 
-        static let xScale = CGFloat(1.25)
-        static let yScale = CGFloat(2.2)
+        static let xScale = CGFloat(1.5)
+        static let yScale = CGFloat(2.5)
 
         static let animationDuration = 0.04
 
