@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func installProfile(_ sender: AnyObject) {
+        UIApplication.shared.openURL(URL(string: "https://dadap.github.io/pIqaD-tools/input-methods/iOS/pIqaD/profiles/pIqaD-qolqoS.mobileconfig")!)
+    }
 
 }
 
