@@ -76,6 +76,7 @@
 		42010D6B200D37B800B8D880 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		42010D6D200D37B800B8D880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pIqaD-qolqoS.ttf"; sourceTree = "<group>"; };
+		426C930E2033CB4B000BEE0E /* pIqaD-qolqoS.mobileconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "pIqaD-qolqoS.mobileconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +167,7 @@
 		42010D6A200D37B800B8D880 /* pIqaD */ = {
 			isa = PBXGroup;
 			children = (
+				426C930D2033CA8E000BEE0E /* profiles */,
 				42010D75200D393700B8D880 /* fonts */,
 				42010D6B200D37B800B8D880 /* KeyboardViewController.swift */,
 				42010D6D200D37B800B8D880 /* Info.plist */,
@@ -179,6 +181,14 @@
 				421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		426C930D2033CA8E000BEE0E /* profiles */ = {
+			isa = PBXGroup;
+			children = (
+				426C930E2033CB4B000BEE0E /* pIqaD-qolqoS.mobileconfig */,
+			);
+			path = profiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
