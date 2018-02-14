@@ -52,7 +52,7 @@ class KeyboardViewController: UIInputViewController {
             spacing = KeyboardButton.buttonSpacing
 
             for name in keyNames {
-                let key = KeyboardButton(label: name)
+                let key = KeyboardButton(label: name, bgColor: Keyboard.bgForLabel(name: name), selectedColor: Keyboard.selForLabel(name: name))
 
                 if name == Keyboard.switchName {
                     keyboardVC.nextKeyboardButton = key
@@ -65,11 +65,6 @@ class KeyboardViewController: UIInputViewController {
                         addArrangedSubview(key)
                     }
                 } else {
-                    if name == Keyboard.enterName {
-                        key.backgroundColor = KeyboardButton.labelColor
-                        key.setTitleColor(KeyboardButton.bgColor, for: .normal)
-                    }
-
                     addArrangedSubview(key)
                 }
             }
@@ -201,11 +196,34 @@ class KeyboardViewController: UIInputViewController {
                 }
             }
         }
+
+        static func bgForLabel(name: String) -> UIColor {
+            if name == enterName || name == switchName || name == backspaceName {
+                return KeyboardButton.fnBgColor
+            }
+
+            return KeyboardButton.bgColor
+
+        }
+
+        static func selForLabel(name: String) -> UIColor {
+            if name == spaceName || hasDigit(string: name) {
+                return KeyboardButton.fnBgColor
+            }
+
+            return KeyboardButton.bgColor
+        }
+
+        static func hasDigit(string: String) -> Bool {
+            let digits = CharacterSet(charactersIn: "")
+            return string.rangeOfCharacter(from: digits) != nil
+        }
     }
 
     class KeyboardButton: UIButton {
-        static let bgColor = UIColor.lightGray
-        static let labelColor = UIColor.red
+        static let bgColor = UIColor.white
+        static let fnBgColor = UIColor.lightGray
+        static let labelColor = UIColor.black
 
         static let fontName = "pIqaD qolqoS"
         static let fontSize = CGFloat(20)
@@ -214,7 +232,10 @@ class KeyboardViewController: UIInputViewController {
 
         static let animationDuration = 0.04
 
-        init(label: String) {
+        var selectedColor: UIColor = KeyboardButton.bgColor
+        var deselectedColor: UIColor = KeyboardButton.bgColor
+
+        init(label: String, bgColor: UIColor, selectedColor: UIColor) {
             super.init(frame: .zero)
 
             var fontSize = KeyboardButton.fontSize
@@ -228,30 +249,27 @@ class KeyboardViewController: UIInputViewController {
             setTitle(label, for: [])
             titleLabel?.font = UIFont(name: KeyboardButton.fontName, size: fontSize)
             setTitleColor(KeyboardButton.labelColor, for: .normal)
-            backgroundColor = KeyboardButton.bgColor
+            backgroundColor = bgColor
+            deselectedColor = bgColor
+            self.selectedColor = selectedColor
             layer.cornerRadius = KeyboardButton.cornerRadius
             layer.shadowColor = UIColor.black.cgColor
             layer.shadowRadius = 0.2
             layer.shadowOpacity = 0.4
-            layer.shadowOffset = CGSize(width: 1, height: 1)
+            layer.shadowOffset = CGSize(width: 0, height: 1)
         }
 
         required init?(coder: NSCoder) {
             fatalError("init(coder:) not implemented")
         }
 
-        func hasDigit(string: String) -> Bool {
-            let digits = CharacterSet(charactersIn: "")
-            return string.rangeOfCharacter(from: digits) != nil
-        }
-
         func isPoppable() -> Bool {
             let title = self.currentTitle!
-            return title.count == 1 && title != Keyboard.backspaceName && !hasDigit(string: title)
+            return title.count == 1 && title != Keyboard.backspaceName && !Keyboard.hasDigit(string: title)
         }
 
         func popOut() {
-            backgroundColor = .white
+            backgroundColor = selectedColor
 
             if isPoppable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
@@ -263,11 +281,7 @@ class KeyboardViewController: UIInputViewController {
         }
 
         func popIn() {
-            if currentTitle == Keyboard.enterName {
-                backgroundColor = KeyboardButton.labelColor
-            } else {
-                backgroundColor = KeyboardButton.bgColor
-            }
+            backgroundColor = deselectedColor
 
             if isPoppable() {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
