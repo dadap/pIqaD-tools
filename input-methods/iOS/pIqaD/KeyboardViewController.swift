@@ -69,7 +69,7 @@ class KeyboardViewController: UIInputViewController {
                 }
             }
 
-            if (arrangedSubviews[0] as! KeyboardButton).isPoppable() {
+            if arrangedSubviews.count > 3 {
                 self.distribution = .fillEqually
             } else {
                 self.distribution = .fillProportionally
