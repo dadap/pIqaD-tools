@@ -16,7 +16,6 @@
 		42010D58200D36E900B8D880 /* ipIqaDUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D57200D36E900B8D880 /* ipIqaDUITests.swift */; };
 		42010D6C200D37B800B8D880 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42010D6B200D37B800B8D880 /* KeyboardViewController.swift */; };
 		42010D70200D37B800B8D880 /* pIqaD.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 42010D69200D37B700B8D880 /* pIqaD.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		421DBB8A202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */; };
 		421DBB8B202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 421DBB89202F353000BFE201 /* pIqaD-qolqoS.ttf */; };
 /* End PBXBuildFile section */
 
@@ -323,7 +322,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42010D42200D36E800B8D880 /* LaunchScreen.storyboard in Resources */,
-				421DBB8A202F353000BFE201 /* pIqaD-qolqoS.ttf in Resources */,
 				42010D3F200D36E800B8D880 /* Assets.xcassets in Resources */,
 				42010D3D200D36E800B8D880 /* Main.storyboard in Resources */,
 			);

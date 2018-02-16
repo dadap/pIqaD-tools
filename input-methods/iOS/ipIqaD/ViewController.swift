@@ -9,10 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet weak var fontInstalledLabel: UILabel!
+    @IBOutlet weak var installFontButton: UIButton!
+    @IBOutlet weak var textArea: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLabels), name: .UIApplicationWillEnterForeground, object: nil)
+        updateLabels()
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,9 +25,73 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @objc func updateLabels() {
+        if (pIqaDFontInstalled()) {
+            fontInstalledLabel.text = "  "
+            installFontButton.setTitle(" ", for: [])
+
+            textArea.font = UIFont(name: "pIqaD qolqoS", size: 17)
+            textArea.alpha = 1
+
+            if (keyboardInstalled()) {
+                textArea.text = "    "
+                textArea.isEditable = true
+            } else {
+                textArea.text = """
+                    \n
+                 “Settings” “General:Keyboard:Keyboards” 
+                 “Add New Keyboard…” 
+                 “Third-Party Keyboards” “ipIqaD” \n
+                
+                """
+                textArea.isEditable = false
+            }
+        } else {
+            fontInstalledLabel.text = "Qagh! pIqaDmey vItu'be'."
+            installFontButton.setTitle("pIqaDmey tIjom", for: [])
+            if (keyboardInstalled()) {
+                textArea.alpha = 0
+            } else {
+                textArea.text = """
+                    Qagh! SeHlaw vItu'be'. SeHlaw yIcher!\n
+                    1. “Settings”Daq “General:Keyboard:Keyboards” yI'el.
+                    2. “Add New Keyboard…” yIwIv.
+                    3. “Third-Party Keyboards”Daq “ipIqaD” yIchel.\n
+                    Qapla'.
+                    """
+                textArea.isEditable = false
+                textArea.alpha = 1
+            }
+
+        }
+    }
+
+    func keyboardInstalled() -> Bool {
+        if let keyboards = UserDefaults.standard.dictionaryRepresentation()["AppleKeyboards"] as? [String] {
+            if keyboards.contains("net.dadap.ipIqaD.pIqaD") {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    func pIqaDFontInstalled() -> Bool {
+        for family: String in UIFont.familyNames {
+            let font = UIFont(name: family, size: 12)
+            let charset = font?.fontDescriptor.object(forKey: .characterSet) as! NSCharacterSet
+            let pIqaDchars = CharacterSet(charactersIn: "")
+
+            if charset.isSuperset(of: pIqaDchars) {
+                print("\(family)\n")
+                return true
+            }
+        }
+        return false
+    }
+
     @IBAction func installProfile(_ sender: AnyObject) {
         UIApplication.shared.openURL(URL(string: "https://dadap.github.io/pIqaD-tools/input-methods/iOS/pIqaD/profiles/pIqaD-qolqoS.mobileconfig")!)
     }
-
 }
 

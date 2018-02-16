@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,33 +32,48 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9O-bl-u6k">
-                                <rect key="frame" x="16" y="66" width="121" height="30"/>
+                                <rect key="frame" x="238" y="73" width="121" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1dw-uq-twW"/>
+                                    <constraint firstAttribute="width" constant="121" id="OTB-EL-iNS"/>
+                                    <constraint firstAttribute="height" constant="30" id="uh6-fr-1my"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="pIqaD_qolqoS" family="pIqaD qolqoS" pointSize="17"/>
-                                <state key="normal" title=" "/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="pIqaDmey tIjom"/>
                                 <connections>
                                     <action selector="installProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4hP-hf-gEX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qagh! pIqaDmey vItu'be'." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHW-Hm-mDg">
+                                <rect key="frame" x="16" y="78" width="214" height="21.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="e9O-bl-u6k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="22" id="Id5-3S-PZs"/>
-                            <constraint firstItem="e9O-bl-u6k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="ONw-i9-G8G"/>
-                            <constraint firstItem="cUW-hV-VaF" firstAttribute="top" secondItem="e9O-bl-u6k" secondAttribute="bottom" constant="15" id="R2i-V4-DuC"/>
+                            <constraint firstItem="e9O-bl-u6k" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="L4u-zf-iSc"/>
+                            <constraint firstItem="yHW-Hm-mDg" firstAttribute="firstBaseline" secondItem="e9O-bl-u6k" secondAttribute="firstBaseline" id="PFV-1h-bDt"/>
+                            <constraint firstItem="e9O-bl-u6k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="29" id="TYq-wU-Hki"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cUW-hV-VaF" secondAttribute="trailing" id="VdE-0P-8xC"/>
+                            <constraint firstItem="cUW-hV-VaF" firstAttribute="top" secondItem="e9O-bl-u6k" secondAttribute="bottom" constant="8" symbolic="YES" id="aML-G8-C9v"/>
                             <constraint firstItem="cUW-hV-VaF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="iWi-Ku-DhL"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="e9O-bl-u6k" secondAttribute="trailing" constant="20" symbolic="YES" id="l5V-ap-oAk"/>
+                            <constraint firstItem="e9O-bl-u6k" firstAttribute="leading" secondItem="yHW-Hm-mDg" secondAttribute="trailing" constant="8" symbolic="YES" id="pzH-E6-RX9"/>
+                            <constraint firstItem="yHW-Hm-mDg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="uIK-PW-VsV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cUW-hV-VaF" secondAttribute="bottom" id="xfQ-fA-w5h"/>
+                            <constraint firstItem="yHW-Hm-mDg" firstAttribute="centerY" secondItem="e9O-bl-u6k" secondAttribute="centerY" id="zVx-z9-mBb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="fontInstalledLabel" destination="yHW-Hm-mDg" id="trf-p7-XQv"/>
+                        <outlet property="installFontButton" destination="e9O-bl-u6k" id="U3H-IG-cJG"/>
+                        <outlet property="textArea" destination="cUW-hV-VaF" id="fRY-y2-vWl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-80.799999999999997" y="105.66502463054188"/>
+            <point key="canvasLocation" x="-81.5" y="105"/>
         </scene>
     </scenes>
 </document>
