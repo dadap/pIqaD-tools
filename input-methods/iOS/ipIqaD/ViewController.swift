@@ -34,8 +34,10 @@ class ViewController: UIViewController {
             textArea.alpha = 1
 
             if (keyboardInstalled()) {
-                textArea.text = "    "
-                textArea.isEditable = true
+                if !textArea.isEditable {
+                    textArea.text = "    "
+                    textArea.isEditable = true
+                }
             } else {
                 textArea.text = """
                     \n
