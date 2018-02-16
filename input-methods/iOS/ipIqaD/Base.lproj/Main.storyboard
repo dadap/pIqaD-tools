@@ -32,9 +32,8 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9O-bl-u6k">
-                                <rect key="frame" x="238" y="73" width="121" height="30"/>
+                                <rect key="frame" x="215.33333333333337" y="73" width="143.66666666666663" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="121" id="OTB-EL-iNS"/>
                                     <constraint firstAttribute="height" constant="30" id="uh6-fr-1my"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -44,7 +43,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qagh! pIqaDmey vItu'be'." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHW-Hm-mDg">
-                                <rect key="frame" x="16" y="78" width="214" height="21.666666666666671"/>
+                                <rect key="frame" x="16" y="78" width="191.33333333333334" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
