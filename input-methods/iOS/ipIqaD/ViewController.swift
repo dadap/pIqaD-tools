@@ -84,7 +84,6 @@ class ViewController: UIViewController {
             let pIqaDchars = CharacterSet(charactersIn: "")
 
             if charset.isSuperset(of: pIqaDchars) {
-                print("\(family)\n")
                 return true
             }
         }
