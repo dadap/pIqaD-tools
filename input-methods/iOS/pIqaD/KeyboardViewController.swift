@@ -69,8 +69,9 @@ class KeyboardViewController: UIInputViewController {
                     keyboardVC.nextKeyboardButton = key
                     key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
                 } else if !isCharacter {
-                    key.addTarget(self, action: #selector(keyDown(sender:)), for: .touchDown)
+                    key.addTarget(self, action: #selector(keyDown(sender:)), for: [.touchDown, .touchDragEnter])
                     key.addTarget(self, action: #selector(keyUp(sender:)), for: .touchUpInside)
+                    key.addTarget(self, action: #selector(keyOut(sender:)), for: [.touchUpOutside, .touchDragExit])
                 }
 
                 addArrangedSubview(key)
@@ -98,6 +99,10 @@ class KeyboardViewController: UIInputViewController {
 
         @IBAction func keyDown(sender: KeyboardButton) {
             sender.popOut()
+        }
+
+        @IBAction func keyOut(sender: KeyboardButton) {
+            sender.popIn()
         }
 
         @IBAction func keyUp(sender: KeyboardButton) {
