@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func installProfile(_ sender: AnyObject) {
-        UIApplication.shared.openURL(URL(string: "https://dadap.github.io/pIqaD-tools/input-methods/iOS/pIqaD/profiles/pIqaD-qolqoS.mobileconfig")!)
+        UIApplication.shared.openURL(URL(string: "https://dadap.github.io/pIqaD-tools/input-methods/iOS/install-font.html")!)
     }
 }
 
