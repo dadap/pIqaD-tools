@@ -27,7 +27,7 @@ class ViewController: UIViewController {
 
     @objc func updateLabels() {
         if (pIqaDFontInstalled()) {
-            fontInstalledLabel.text = "  "
+            fontInstalledLabel.text = "    "
             installFontButton.isHidden = true
 
             textArea.font = UIFont(name: "pIqaD qolqoS", size: 17)
@@ -41,24 +41,24 @@ class ViewController: UIViewController {
             } else {
                 textArea.text = """
                       \n
-                 “Settings” “General:Keyboard:Keyboards” 
+                 “Settings”  “General:Keyboard:Keyboards”  
                  “Add New Keyboard…” 
-                 “Third-Party Keyboards” “ipIqaD” \n
+                 “Third-Party Keyboards” “ipIqaD”  \n
                 
                 """
                 textArea.isEditable = false
             }
         } else {
-            fontInstalledLabel.text = "pIqaDmey vItu'be'. →"
+            fontInstalledLabel.text = "pIqaD ngutlh tu'qom vItu'be'. →"
             installFontButton.isHidden = false
             if (keyboardInstalled()) {
                 textArea.isHidden = true
             } else {
                 textArea.text = """
                     Qagh! pIqaD SeHlaw vItu'be'. pIqaD SeHlaw yIcher!\n
-                    1. “Settings”Daq “General:Keyboard:Keyboards” yI'el.
+                    1. “Settings” SeHlawDaq “General:Keyboard:Keyboards” buv yI'el.
                     2. “Add New Keyboard…” yIwIv.
-                    3. “Third-Party Keyboards”Daq “ipIqaD” yIchel.\n
+                    3. “Third-Party Keyboards”Daq “ipIqaD” DuH yIchel.\n
                     Qapla'.
                     """
                 textArea.isEditable = false
