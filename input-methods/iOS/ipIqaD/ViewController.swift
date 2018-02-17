@@ -40,7 +40,7 @@ class ViewController: UIViewController {
                 }
             } else {
                 textArea.text = """
-                    \n
+                      \n
                  “Settings” “General:Keyboard:Keyboards” 
                  “Add New Keyboard…” 
                  “Third-Party Keyboards” “ipIqaD” \n
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
                 textArea.alpha = 0
             } else {
                 textArea.text = """
-                    Qagh! SeHlaw vItu'be'. SeHlaw yIcher!\n
+                    Qagh! pIqaD SeHlaw vItu'be'. pIqaD SeHlaw yIcher!\n
                     1. “Settings”Daq “General:Keyboard:Keyboards” yI'el.
                     2. “Add New Keyboard…” yIwIv.
                     3. “Third-Party Keyboards”Daq “ipIqaD” yIchel.\n
