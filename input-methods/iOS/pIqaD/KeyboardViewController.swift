@@ -154,12 +154,15 @@ class KeyboardViewController: UIInputViewController {
             fatalError()
         }
 
-        func changeKeys(touches: Set<UITouch>, event: UIEvent) {
+        func changeKeys(with event: UIEvent?) {
             var newActiveKeys = Set<KeyboardButton>()
+            let viewTouches = event?.touches(for: self as UIView)
 
-            for touch in touches {
-                if let key = super.hitTest(touch.location(in: self), with: event) as? KeyboardButton {
-                    newActiveKeys.insert(key)
+            if viewTouches != nil {
+                for touch in viewTouches! {
+                    if let key = super.hitTest(touch.location(in: self), with: event) as? KeyboardButton {
+                        newActiveKeys.insert(key)
+                    }
                 }
             }
 
@@ -208,13 +211,13 @@ class KeyboardViewController: UIInputViewController {
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
             super.touchesBegan(touches, with: event)
 
-            changeKeys(touches: touches, event: event!)
+            changeKeys(with: event)
         }
 
         override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?){
             super.touchesMoved(touches, with: event)
 
-            changeKeys(touches: touches, event: event!)
+            changeKeys(with: event)
         }
 
         override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?){
