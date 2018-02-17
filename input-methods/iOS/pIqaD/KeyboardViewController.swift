@@ -49,7 +49,9 @@ class KeyboardViewController: UIInputViewController {
     }
 
     class KeyRow: UIStackView {
+        let keyboardVC: KeyboardViewController!
         init(keyNames: [String], keyboardVC: KeyboardViewController) {
+            self.keyboardVC = keyboardVC
             super.init(frame: CGRect.zero)
 
             axis = .horizontal
@@ -58,10 +60,17 @@ class KeyboardViewController: UIInputViewController {
             spacing = KeyboardButton.buttonSpacing
 
             for name in keyNames {
-                let key = KeyboardButton(label: name, bgColor: Keyboard.bgForLabel(name: name), selectedColor: Keyboard.selForLabel(name: name))
+                let isCharacter = (name.count == 1 && name != Keyboard.backspaceName) || name == Keyboard.spaceName
+                let isPoppable = isCharacter && name != Keyboard.spaceName && !Keyboard.hasDigit(string: name)
+
+                let key = KeyboardButton(label: name, isCharacter: isCharacter, isPoppable: isPoppable)
 
                 if name == Keyboard.switchName {
                     keyboardVC.nextKeyboardButton = key
+                    key.addTarget(self, action: #selector(switchKey(sender:forEvent:)), for: .allTouchEvents)
+                } else if !isCharacter {
+                    key.addTarget(self, action: #selector(keyDown(sender:)), for: .touchDown)
+                    key.addTarget(self, action: #selector(keyUp(sender:)), for: .touchUpInside)
                 }
 
                 addArrangedSubview(key)
@@ -77,6 +86,30 @@ class KeyboardViewController: UIInputViewController {
 
         required init(coder: NSCoder) {
             fatalError()
+        }
+
+        @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
+            if #available(iOSApplicationExtension 10.0, *) {
+                keyboardVC.handleInputModeList(from: sender, with: event)
+            } else {
+                keyboardVC.advanceToNextInputMode()
+            }
+        }
+
+        @IBAction func keyDown(sender: KeyboardButton) {
+            sender.popOut()
+        }
+
+        @IBAction func keyUp(sender: KeyboardButton) {
+            let title = sender.title(for: .normal)
+
+            sender.popIn()
+            if title == Keyboard.backspaceName {
+                // TODO: Repeat key presses on long press
+                keyboardVC.textDocumentProxy.deleteBackward()
+            } else if title == Keyboard.enterName {
+                keyboardVC.textDocumentProxy.insertText("\n")
+            }
         }
     }
 
@@ -129,11 +162,15 @@ class KeyboardViewController: UIInputViewController {
             let deactivated = activeKeys.subtracting(newActiveKeys)
 
             for key in activated {
-                key.popOut()
+                if key.isCharacter {
+                    key.popOut()
+                }
             }
 
             for key in deactivated {
-                key.popIn()
+                if key.isCharacter {
+                    key.popIn()
+                }
             }
 
             activeKeys = newActiveKeys
@@ -153,6 +190,11 @@ class KeyboardViewController: UIInputViewController {
         }
 
         override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+            if let key = super.hitTest(point, with: event) as? KeyboardButton {
+                if !key.isCharacter {
+                    return key
+                }
+            }
             // Don't propagate the hitTest to subviews: we want to track all touches
             // as they move between subviews.
             return self
@@ -175,21 +217,17 @@ class KeyboardViewController: UIInputViewController {
 
             for touch in touches {
                 if let key = super.hitTest(touch.location(in: self), with: event) as? KeyboardButton {
+                    if !key.isCharacter {
+                        continue
+                    }
+
                     key.popIn()
                     activeKeys.remove(key)
 
                     let name = key.currentTitle
 
-                    if name == Keyboard.backspaceName {
-                        // TODO: Repeat key presses on long press
-                        (keyboardVC.textDocumentProxy as UIKeyInput).deleteBackward()
-                    } else if name == Keyboard.spaceName {
+                    if name == Keyboard.spaceName {
                         (keyboardVC.textDocumentProxy as UIKeyInput).insertText(" ")
-                    } else if name == Keyboard.enterName {
-                        (keyboardVC.textDocumentProxy as UIKeyInput).insertText("\n")
-                    } else if name == Keyboard.switchName {
-                        // TODO: Support handleInputModeList() in iOS 10.0 and above
-                        keyboardVC.advanceToNextInputMode()
                     } else {
                         (keyboardVC.textDocumentProxy as UIKeyInput).insertText(name!)
                     }
@@ -206,15 +244,6 @@ class KeyboardViewController: UIInputViewController {
                     activeKeys.remove(key)
                 }
             }
-        }
-
-        static func bgForLabel(name: String) -> UIColor {
-            if name == enterName || name == switchName || name == backspaceName {
-                return KeyboardButton.fnBgColor
-            }
-
-            return KeyboardButton.bgColor
-
         }
 
         static func selForLabel(name: String) -> UIColor {
@@ -247,10 +276,16 @@ class KeyboardViewController: UIInputViewController {
 
         static let animationDuration = 0.04
 
+        let isCharacter: Bool!
+        let isPoppable: Bool!
+
         var selectedColor: UIColor = KeyboardButton.bgColor
         var deselectedColor: UIColor = KeyboardButton.bgColor
 
-        init(label: String, bgColor: UIColor, selectedColor: UIColor) {
+        init(label: String, isCharacter: Bool, isPoppable: Bool) {
+            self.isCharacter = isCharacter
+            self.isPoppable = isPoppable
+
             super.init(frame: .zero)
 
             var fontSize = KeyboardButton.fontSize
@@ -264,29 +299,33 @@ class KeyboardViewController: UIInputViewController {
             setTitle(label, for: [])
             titleLabel?.font = UIFont(name: KeyboardButton.fontName, size: fontSize)
             setTitleColor(KeyboardButton.labelColor, for: .normal)
-            backgroundColor = bgColor
-            deselectedColor = bgColor
-            self.selectedColor = selectedColor
             layer.cornerRadius = KeyboardButton.cornerRadius
             layer.shadowColor = UIColor.black.cgColor
             layer.shadowRadius = 0.2
             layer.shadowOpacity = 0.4
             layer.shadowOffset = CGSize(width: 0, height: 1)
+            if (isCharacter) {
+                deselectedColor = KeyboardButton.bgColor
+                if (isPoppable) {
+                    selectedColor = KeyboardButton.bgColor
+                } else {
+                    selectedColor = KeyboardButton.fnBgColor
+                }
+            } else {
+                deselectedColor = KeyboardButton.fnBgColor
+                selectedColor = KeyboardButton.bgColor
+            }
+            backgroundColor = deselectedColor
         }
 
         required init?(coder: NSCoder) {
             fatalError("init(coder:) not implemented")
         }
 
-        func isPoppable() -> Bool {
-            let title = self.currentTitle!
-            return title.count == 1 && title != Keyboard.backspaceName && !Keyboard.hasDigit(string: title)
-        }
-
         func popOut() {
             backgroundColor = selectedColor
 
-            if isPoppable() {
+            if isPoppable {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
                     self.transform = CGAffineTransform(a: KeyboardButton.xScale, b: 0, c: 0, d: KeyboardButton.yScale, tx: 0, ty: -self.layer.bounds.height/KeyboardButton.yScale)
                     self.titleEdgeInsets = UIEdgeInsetsMake(-self.layer.bounds.height/KeyboardButton.yScale/2, 0, 0, 0)
@@ -298,7 +337,7 @@ class KeyboardViewController: UIInputViewController {
         func popIn() {
             backgroundColor = deselectedColor
 
-            if isPoppable() {
+            if isPoppable {
                 UIView.animate(withDuration: KeyboardButton.animationDuration, animations: {
                     self.transform = .identity
                     self.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
