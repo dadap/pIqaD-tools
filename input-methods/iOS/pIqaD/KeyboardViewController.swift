@@ -38,12 +38,10 @@ class KeyboardViewController: UIInputViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let switchKey: Bool
+        var switchKey = true
 
         if #available(iOSApplicationExtension 11.0, *) {
             switchKey = needsInputModeSwitchKey // XXX wrong value in some older apps
-        } else {
-            switchKey = true
         }
 
         keyboard!.addOrRemoveSwitchKey(needsInputModeSwitchKey: switchKey)
@@ -64,9 +62,9 @@ class KeyboardViewController: UIInputViewController {
 
                 if name == Keyboard.switchName {
                     keyboardVC.nextKeyboardButton = key
-                } else {
-                    addArrangedSubview(key)
                 }
+
+                addArrangedSubview(key)
             }
 
             if arrangedSubviews.count > 3 {
@@ -145,16 +143,11 @@ class KeyboardViewController: UIInputViewController {
             if #available(iOSApplicationExtension 11.0, *) {
                 let lastRow = arrangedSubviews.last as! UIStackView
                 let firstKey = lastRow.arrangedSubviews.first as! KeyboardButton
-                let nextKeyButton = keyboardVC.nextKeyboardButton!
 
                 if needsInputModeSwitchKey {
-                    if firstKey != nextKeyButton {
-                        lastRow.insertArrangedSubview(nextKeyButton, at: 0)
-                    }
+                    firstKey.isHidden = false
                 } else {
-                    if firstKey == nextKeyButton {
-                        lastRow.removeArrangedSubview(nextKeyButton)
-                    }
+                    firstKey.isHidden = true
                 }
             }
         }
