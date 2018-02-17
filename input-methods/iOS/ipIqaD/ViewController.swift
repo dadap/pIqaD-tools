@@ -28,10 +28,10 @@ class ViewController: UIViewController {
     @objc func updateLabels() {
         if (pIqaDFontInstalled()) {
             fontInstalledLabel.text = "  "
-            installFontButton.setTitle(" ", for: [])
+            installFontButton.isHidden = true
 
             textArea.font = UIFont(name: "pIqaD qolqoS", size: 17)
-            textArea.alpha = 1
+            textArea.isHidden = false
 
             if (keyboardInstalled()) {
                 if !textArea.isEditable {
@@ -49,10 +49,10 @@ class ViewController: UIViewController {
                 textArea.isEditable = false
             }
         } else {
-            fontInstalledLabel.text = "Qagh! pIqaDmey vItu'be'."
-            installFontButton.setTitle("pIqaDmey tIjom", for: [])
+            fontInstalledLabel.text = "pIqaDmey vItu'be'. →"
+            installFontButton.isHidden = false
             if (keyboardInstalled()) {
-                textArea.alpha = 0
+                textArea.isHidden = true
             } else {
                 textArea.text = """
                     Qagh! pIqaD SeHlaw vItu'be'. pIqaD SeHlaw yIcher!\n
@@ -62,9 +62,8 @@ class ViewController: UIViewController {
                     Qapla'.
                     """
                 textArea.isEditable = false
-                textArea.alpha = 1
+                textArea.isHidden = false
             }
-
         }
     }
 
