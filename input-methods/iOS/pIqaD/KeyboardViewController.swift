@@ -120,17 +120,17 @@ class KeyboardViewController: UIInputViewController {
         }
 
         @IBAction func keyDown(sender: KeyboardButton) {
-            sender.popOut()
+            sender.select()
         }
 
         @IBAction func keyOut(sender: KeyboardButton) {
-            sender.popIn()
+            sender.deselect()
         }
 
         @IBAction func keyUp(sender: KeyboardButton) {
             let title = sender.title(for: .normal)
 
-            sender.popIn()
+            sender.deselect()
             if title == Keyboard.backspaceName {
                 // TODO: Repeat key presses on long press
                 keyboardVC.textDocumentProxy.deleteBackward()
@@ -194,13 +194,13 @@ class KeyboardViewController: UIInputViewController {
 
             for key in activated {
                 if key.isCharacter {
-                    key.popOut()
+                    key.select()
                 }
             }
 
             for key in deactivated {
                 if key.isCharacter {
-                    key.popIn()
+                    key.deselect()
                 }
             }
 
@@ -252,7 +252,7 @@ class KeyboardViewController: UIInputViewController {
                         continue
                     }
 
-                    key.popIn()
+                    key.deselect()
                     activeKeys.remove(key)
 
                     let name = key.currentTitle
@@ -271,7 +271,7 @@ class KeyboardViewController: UIInputViewController {
 
             for touch in touches {
                 if let key = super.hitTest(touch.location(in: self), with: event) as? KeyboardButton {
-                    key.popIn()
+                    key.deselect()
                     activeKeys.remove(key)
                 }
             }
@@ -361,7 +361,7 @@ class KeyboardViewController: UIInputViewController {
             fatalError("init(coder:) not implemented")
         }
 
-        func popOut() {
+        func select() {
             backgroundColor = selectedColor
 
             if isPoppable {
@@ -373,7 +373,7 @@ class KeyboardViewController: UIInputViewController {
             }
         }
 
-        func popIn() {
+        func deselect() {
             backgroundColor = deselectedColor
 
             if isPoppable {
