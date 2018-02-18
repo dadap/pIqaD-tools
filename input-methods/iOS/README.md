@@ -15,9 +15,8 @@ Two post-installation steps are necessary in order to use the keyboard:
 2. Install a pIqaD font systemwide if you don't already have one. ipIqaD comes
    bundled with the "pIqaD qolqoS" font for use in the keyboard and in the
    ipIqaD app, but you will need a font installed systemwide to read and write
-   pIqaD in other apps. Click on the " " button in the ipIqaD app
-   or visit
-   <https://dadap.github.io/pIqaD-tools/input-methods/iOS/pIqaD/profiles/pIqaD-qolqoS.mobileconfig>
+   pIqaD in other apps. Click on the "yIjom" button in the ipIqaD app or visit
+   <https://dadap.github.io/pIqaD-tools/input-methods/iOS/install-font>
    to install the pIqaD qolqoS font systemwide via a configuration profile. You
    can also install the pIqaD font of your choice by creating a configuration
    profile and e-mailing it to yourself, as long as the font conforms with the
