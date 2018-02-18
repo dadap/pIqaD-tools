@@ -9,6 +9,8 @@
 import UIKit
 
 class KeyboardViewController: UIInputViewController {
+    var darkKeyboard: Keyboard?
+    var lightKeyboard: Keyboard?
     var keyboard: Keyboard?
 
     @IBOutlet var nextKeyboardButton: UIButton!
@@ -23,7 +25,8 @@ class KeyboardViewController: UIInputViewController {
     }
 
     func initKeyboard() {
-        keyboard = Keyboard(keyboardVC: self)
+        darkKeyboard = Keyboard(keyboardVC: self, theme: .dark)
+        lightKeyboard = Keyboard(keyboardVC: self, theme: .light)
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -36,24 +39,40 @@ class KeyboardViewController: UIInputViewController {
         initKeyboard()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        var switchKey = true
+    func refreshKeyboard() {
+        let switchKey: Bool
 
-        /* XXX always display the switch key: a bug prevents it from being displayed
-         on iPhone X in apps that are not display-optimized for iPhone X.
         if #available(iOSApplicationExtension 11.0, *) {
-            switchKey = needsInputModeSwitchKey
+            // XXX always display the switch key: a bug prevents it from being displayed
+            //on iPhone X in apps that are not display-optimized for iPhone X.
+            switchKey = true //needsInputModeSwitchKey
+        } else {
+            switchKey = true
         }
-         */
+
+        if (textDocumentProxy.keyboardAppearance == .dark) {
+            keyboard = darkKeyboard
+        } else {
+            keyboard = lightKeyboard
+        }
 
         keyboard!.addOrRemoveSwitchKey(needsInputModeSwitchKey: switchKey)
         view.addSubview(keyboard!)
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        refreshKeyboard()
+    }
+
+    override func textWillChange(_ textInput: UITextInput?) {
+         refreshKeyboard()
+    }
+
     class KeyRow: UIStackView {
         let keyboardVC: KeyboardViewController!
-        init(keyNames: [String], keyboardVC: KeyboardViewController) {
+        init(keyNames: [String], keyboardVC: KeyboardViewController, theme: UIKeyboardAppearance) {
             self.keyboardVC = keyboardVC
             super.init(frame: CGRect.zero)
 
@@ -66,7 +85,7 @@ class KeyboardViewController: UIInputViewController {
                 let isCharacter = (name.count == 1 && name != Keyboard.backspaceName) || name == Keyboard.spaceName
                 let isPoppable = isCharacter && name != Keyboard.spaceName && !Keyboard.hasDigit(string: name)
 
-                let key = KeyboardButton(label: name, isCharacter: isCharacter, isPoppable: isPoppable)
+                let key = KeyboardButton(label: name, isCharacter: isCharacter, isPoppable: isPoppable, theme: theme)
 
                 if name == Keyboard.switchName {
                     keyboardVC.nextKeyboardButton = key
@@ -137,7 +156,7 @@ class KeyboardViewController: UIInputViewController {
         var activeKeys = Set<KeyboardButton>()
         let keyboardVC: KeyboardViewController
 
-        init(keyboardVC: KeyboardViewController) {
+        init(keyboardVC: KeyboardViewController, theme: UIKeyboardAppearance) {
             self.keyboardVC = keyboardVC
             super.init(frame: CGRect.zero)
 
@@ -148,7 +167,7 @@ class KeyboardViewController: UIInputViewController {
             distribution = .fillEqually
 
             for nameRow in Keyboard.keyNames {
-                addArrangedSubview(KeyRow(keyNames: nameRow, keyboardVC: keyboardVC))
+                addArrangedSubview(KeyRow(keyNames: nameRow, keyboardVC: keyboardVC, theme: theme))
             }
 
             sizeToFit()
@@ -258,14 +277,6 @@ class KeyboardViewController: UIInputViewController {
             }
         }
 
-        static func selForLabel(name: String) -> UIColor {
-            if name == spaceName || hasDigit(string: name) {
-                return KeyboardButton.fnBgColor
-            }
-
-            return KeyboardButton.bgColor
-        }
-
         static func hasDigit(string: String) -> Bool {
             let digits = CharacterSet(charactersIn: "")
             return string.rangeOfCharacter(from: digits) != nil
@@ -273,9 +284,13 @@ class KeyboardViewController: UIInputViewController {
     }
 
     class KeyboardButton: UIButton {
-        static let bgColor = UIColor.white
-        static let fnBgColor = UIColor.lightGray
-        static let labelColor = UIColor.black
+        static let lightBgColor = UIColor.white
+        static let lightFnBgColor = UIColor.lightGray
+        static let lightLabelColor = UIColor.black
+
+        static let darkBgColor = UIColor.gray
+        static let darkFnBgColor = UIColor.darkGray
+        static let darkLabelColor = UIColor.white
 
         static let fontName = "pIqaD qolqoS"
         static let fontSize = CGFloat(20)
@@ -291,10 +306,22 @@ class KeyboardViewController: UIInputViewController {
         let isCharacter: Bool!
         let isPoppable: Bool!
 
-        var selectedColor: UIColor = KeyboardButton.bgColor
-        var deselectedColor: UIColor = KeyboardButton.bgColor
+        var selectedColor: UIColor = KeyboardButton.lightBgColor
+        var deselectedColor: UIColor = KeyboardButton.lightBgColor
 
-        init(label: String, isCharacter: Bool, isPoppable: Bool) {
+        init(label: String, isCharacter: Bool, isPoppable: Bool, theme: UIKeyboardAppearance) {
+            let labelColor: UIColor, bgColor: UIColor, fnBgColor: UIColor
+
+            if (theme == .dark) {
+                labelColor = KeyboardButton.darkLabelColor
+                bgColor = KeyboardButton.darkBgColor
+                fnBgColor = KeyboardButton.darkFnBgColor
+            } else {
+                labelColor = KeyboardButton.lightLabelColor
+                bgColor = KeyboardButton.lightBgColor
+                fnBgColor = KeyboardButton.lightFnBgColor
+            }
+
             self.isCharacter = isCharacter
             self.isPoppable = isPoppable
 
@@ -310,22 +337,22 @@ class KeyboardViewController: UIInputViewController {
 
             setTitle(label, for: [])
             titleLabel?.font = UIFont(name: KeyboardButton.fontName, size: fontSize)
-            setTitleColor(KeyboardButton.labelColor, for: .normal)
+            setTitleColor(labelColor, for: .normal)
             layer.cornerRadius = KeyboardButton.cornerRadius
             layer.shadowColor = UIColor.black.cgColor
             layer.shadowRadius = 0.2
             layer.shadowOpacity = 0.4
             layer.shadowOffset = CGSize(width: 0, height: 1)
             if (isCharacter) {
-                deselectedColor = KeyboardButton.bgColor
+                deselectedColor = bgColor
                 if (isPoppable) {
-                    selectedColor = KeyboardButton.bgColor
+                    selectedColor = bgColor
                 } else {
-                    selectedColor = KeyboardButton.fnBgColor
+                    selectedColor = fnBgColor
                 }
             } else {
-                deselectedColor = KeyboardButton.fnBgColor
-                selectedColor = KeyboardButton.bgColor
+                deselectedColor = fnBgColor
+                selectedColor = bgColor
             }
             backgroundColor = deselectedColor
         }
