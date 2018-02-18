@@ -40,9 +40,12 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         var switchKey = true
 
+        /* XXX always display the switch key: a bug prevents it from being displayed
+         on iPhone X in apps that are not display-optimized for iPhone X.
         if #available(iOSApplicationExtension 11.0, *) {
-            switchKey = needsInputModeSwitchKey // XXX wrong value in some older apps
+            switchKey = needsInputModeSwitchKey
         }
+         */
 
         keyboard!.addOrRemoveSwitchKey(needsInputModeSwitchKey: switchKey)
         view.addSubview(keyboard!)
