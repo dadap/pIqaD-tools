@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var installFontButton: UIButton!
     @IBOutlet weak var textArea: UITextView!
 
+    static let userTextKey = "net.dadap.ipIqaD.userText"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,6 +27,20 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func getUserText() -> String {
+        if let val = UserDefaults.standard.string(forKey: ViewController.userTextKey) {
+            return val
+        } else {
+            return "    "
+        }
+    }
+
+    func saveUserText() {
+        if (pIqaDFontInstalled() && keyboardInstalled()) {
+            UserDefaults.standard.set(textArea.text, forKey: ViewController.userTextKey)
+        }
+    }
+
     @objc func updateLabels() {
         if (pIqaDFontInstalled()) {
             fontInstalledLabel.text = "    "
@@ -35,7 +51,7 @@ class ViewController: UIViewController {
 
             if (keyboardInstalled()) {
                 if !textArea.isEditable {
-                    textArea.text = "    "
+                    textArea.text = getUserText()
                     textArea.isEditable = true
                 }
             } else {
