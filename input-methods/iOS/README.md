@@ -22,6 +22,17 @@ Two post-installation steps are necessary in order to use the keyboard:
    profile and e-mailing it to yourself, as long as the font conforms with the
    Klingon mapping in the Conscript Unicode Registry.
 
+Known Issues
+============
+
+* Typing the Klingon Empire symbol may sometimes display an Apple logo. This is
+  because both symbols occupy the same code point in the Private Use Area of the
+  Basic Multilingual Plane, namely, U+F8FF. You will need to explicitly set a
+  font that provides the Klingon Empire symbol (rather than just allowing the
+  renderer to select a pIqaD font for characters which happen to be pIqaD) in
+  order to avoid seeing an Apple logo.
+* A redundant keyboard switch key is displayed on iPhone X.
+
 Privacy Policy
 ==============
 
@@ -43,6 +54,8 @@ Acknowledgements
 ================
 
 Klingon is a registered trademark of CBS Studios Inc.
+
+iOS and Apple are registered trademarks of Apple Inc.
 
 ipIqaD uses the "pIqaD qolqoS" font, available from:
 
