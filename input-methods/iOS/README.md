@@ -13,9 +13,9 @@ Two post-installation steps are necessary in order to use the keyboard:
 1. Add the ipIqaD keyboard layout in the Settings app. Go to:
    Settings:General:Keyboard:Keyboards:Add New Keyboard and select "ipIqaD".
 2. Install a pIqaD font systemwide if you don't already have one. ipIqaD comes
-   bundled with the "pIqaD qolqoS" font for use in the keyboard and in the
-   ipIqaD app, but you will need a font installed systemwide to read and write
-   pIqaD in other apps. Click on the "yIjom" button in the ipIqaD app or visit
+   bundled with the "pIqaD qolqoS" font for use in the keyboard, but you will
+   need a font installed systemwide to read and write pIqaD. Click on the
+   "yIjom" button in the ipIqaD app or visit
    <https://dadap.github.io/pIqaD-tools/input-methods/iOS/install-font>
    to install the pIqaD qolqoS font systemwide via a configuration profile. You
    can also install the pIqaD font of your choice by creating a configuration
@@ -43,7 +43,7 @@ data with any application apart from the application intended as the recipient
 of the keystrokes.
 
 Future versions of ipIqaD may cache keystroke input for the purpose of choosing
-autocorrect or autocomplete suggestions. If this is to happen, any such data
+autocorrect or autocomplete suggestions. If this were to happen, any such data
 collected would either remain internal to the ipIqaD application and be user
 resettable, or if any network functionality is available (e.g. to improve
 autocomplete suggestions), it would require an explicit user opt-in. This
