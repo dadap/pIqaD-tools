@@ -111,10 +111,23 @@ class KeyboardViewController: UIInputViewController {
             fatalError()
         }
 
-        @IBAction func switchKey(sender: UIButton, forEvent event: UIEvent) {
+        @IBAction func switchKey(sender: KeyboardButton, forEvent event: UIEvent) {
+            var fallbackAdvance = false
+
+            if let touch = event.touches(for: sender)?.first {
+                if sender.bounds.contains(touch.location(in: sender)) {
+                    sender.select()
+                    if touch.phase == .ended {
+                        fallbackAdvance = true
+                    }
+                } else {
+                    sender.deselect()
+                }
+            }
+
             if #available(iOSApplicationExtension 10.0, *) {
                 keyboardVC.handleInputModeList(from: sender, with: event)
-            } else {
+            } else if fallbackAdvance {
                 keyboardVC.advanceToNextInputMode()
             }
         }
