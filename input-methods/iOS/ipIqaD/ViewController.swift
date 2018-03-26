@@ -14,11 +14,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var textArea: UITextView!
 
     static let userTextKey = "net.dadap.ipIqaD.userText"
+    var labelPhase = 0;
+
+    var timer: Timer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         NotificationCenter.default.addObserver(self, selector: #selector(updateLabels), name: .UIApplicationWillEnterForeground, object: nil)
+
+        if (timer == nil) {
+            timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: (#selector(self.updateLabels)), userInfo: nil, repeats: true)
+        }
         updateLabels()
     }
 
@@ -65,7 +72,18 @@ class ViewController: UIViewController {
                 textArea.isEditable = false
             }
         } else {
-            fontInstalledLabel.text = "pIqaD ngutlh tu'qom vItu'be'. →"
+            UIView.transition(with: self.view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                if (self.labelPhase % 2 == 0) {
+                    self.fontInstalledLabel.text = "No pIqaD font is installed."
+                    self.installFontButton.setTitle("Install", for: [])
+                } else {
+                    self.fontInstalledLabel.text = "pIqaD ngutlh tu'qom vItu'be'."
+                    self.installFontButton.setTitle("yIjom", for: [])
+                }
+            }, completion: nil)
+
+            labelPhase += 1
+
             installFontButton.isHidden = false
             if (keyboardInstalled()) {
                 textArea.isHidden = true
