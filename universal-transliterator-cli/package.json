@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "@types/node": "^20.4.5"
+  },
+  "name": "universal-transliterator-cli",
+  "version": "1.0.0",
+  "description": "CLI port of @dadap/pIqaD-tools/universal-transliterator",
+  "main": "utcli.js",
+  "scripts" : {
+    "prepare" : "tsc ./utcli.ts --outFile ./utcli.js; chmod +x ./utcli.js"
+  },
+  "bin" : { "tlh" : "./utcli.js" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dadap/pIqaD-tools"
+  },
+  "keywords": [
+    "klingon",
+    "cli"
+  ],
+  "author": "Catherine Reprobate",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dadap/pIqaD-tools/issues"
+  },
+  "homepage": "https://github.com/dadap/pIqaD-tools/blob/master/README.md"
+}
