@@ -16,6 +16,29 @@ A live version of the Universal Transliterator is available at:
 
 <https://dadap.github.io/pIqaD-tools/universal-transliterator/>
 
+Klingon Universal Transliterator CLI
+------------------------------------
+
+A typescript port to run as a CLI (requires node)
+
+### Installation:
+
+``` sh
+npm link ./universal-transliterator-cli
+```
+
+### Usage - interactive:
+
+``` sh
+# tlh <input>  <source>     <target>
+$ tlh pIraqSIS tlhIngan-Hol xifan
+```
+
+### Usage - stdin
+``` sh
+# tlh $source $target < $newline_seperated_file_of_klingon_text
+```
+
 Klingon Input Methods
 ---------------------
 
